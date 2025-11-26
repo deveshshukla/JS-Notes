@@ -149,11 +149,13 @@ Note: We can change 'elements/values' of array or objects even if declared as co
 -----------------------------------------------------------
 # prgm-2: Data-types in JS
 
-* Primitive data-types (e.g., number, bigint, string, boolean, null, undefined, symbol) are stored and passed by value. They're immutable values stored directly into memory.
+* Primitive data-types: (e.g., number, bigint, string, boolean, null, undefined, symbol) are stored and passed by value. They're immutable values stored directly into memory, they are efficient in both memory usage and performance.
 
-* Non-primitive data-types (objects, arrays, functions, Date Object, regx) are stored and passed by reference (technically, the variable holds a reference to the object’s memory location).
+* Non-primitive data-types: (objects, arrays, functions, date, regx) are stored and passed by reference (technically, the variable holds a reference to the object’s memory location). They are derived from primitive data types, also known as 'derived' or 'reference' data types.
 
 In JavaScript, the main difference between primitive and non-primitive data types is that primitives are stored and passed by value, while non-primitives are stored and passed by reference.
+
+# Primitive:
 
 1. Number => data type in JavaScript includes both integers and floating-point numbers. Special values like Infinity, -Infinity, and NaN.
 Example: (n3 = Infinity or -Infinity)
@@ -178,6 +180,84 @@ Example:
 let a = BigInt("9007199254740992");
 let b = 9007199254740992n; // put 'n' @ end.
 
+
+# Non-Primitive:
+
+1. Object => JavaScript objects are 'key-value pairs' used to store data. In JS everything is an object.
+
+2. Arrays => It's a special kind of object used to store an ordered collection of values, which can be of 'any data type'.
+Example: let a2 = [1, "two", { name: "Object" }, [3, 4, 5]];
+
+3. Function => It's a block of reusable code, same as method in java.
+
+4. Date Object => It's used to work with dates and times.
+
+5. Regular Expression (RegExp) => It's an object used to define search patterns for matching text in strings.
+Example: // RegExp to match the word "hello"
+          let pattern = /hello/;
+
+          // Returns 'false' because "hello" is not present
+          let result1 = pattern.test("Hello, world!");
+
+          // Returns 'true' because "hello" is present
+          let result2 = pattern.test("hello, world!");
+
+
+* Dynamically Typed : JavaScript Variables are not bound to data type they are bound with value of variable and is decided & checked at run time.
+
+* Everything is an Object (Sort of): In JavaScript, Functions are objects, arrays are objects, and even primitive values can behave like objects temporarily when you try to access properties on them.
+
+* NaN is not equal to itself: It is used to represent a computational error. NaN is type number.
+Example: console.log(NaN === NaN); // False
+
+* A Symbol is Never Equal to Another One : Symbol is a unique and immutable data type often used for creating private properties and methods. Symbols are never equal to any other Symbol.
+
+* Character in JS: There is no separate type for characters. A single character is also a string.
+
+-----------------------------------------------------------
+
+# Operators in JS
+
+* There are various operators supported by JavaScript: 
+1. Arithmetic Operator (+ - * / %)
+2. Assignment Operator (= += -= *= /=) 
+3. Comparison Operator (== != >= <=)
+4. Logical Operator (&& || !)
+5. Bitwise Operator (& | ^ ~): Perform operations on binary representations of numbers.
+6. Ternary Operator (condition ? ex1 : ex2): It's a shorthand for conditional statements (if-else).
+
+7. Comma Operator: evaluates operands from left to right and returns the value of the 'rightmost' operand.
+Example: 
+let n1, n2;
+const res = (n1 = 1, n2 = 2, n1 + n2);
+console.log(res); // 3
+
+8. Unary Operator: also known as 'Increment / Decrement' Operators (x++, ++x)
+
+9. Relational Operator: used to compare its operands and determine the relationship between them, return a Boolean value.
+Example:
+const obj = { length: 10 };
+
+  a. console.log("length" in obj); // true
+  --> 'in' checks if a property exists in an object.
+
+  b. console.log([] instanceof Array); // true
+  --> The 'instanceof' operator in JS is used to check if an object is an instance of a specific class or constructor function, or if it inherits from that class's prototype chain.
+
+10. BigInt Operator: It allow calculations with numbers beyond the safe integer range.
+
+11. String Operator: It include concatenation (+) and concatenation assignment (+=), used to join strings or combine strings with other data types.
+
+12. Chaining Operator (?.): allows safe access to deeply nested properties without throwing errors if the property doesn’t exist.
+Example:
+const obj = { name: "Chinmay", address: { city: "Delhi" } };
+console.log(obj.address?.city);
+console.log(obj.contact?.phone);
+
+--> '?.' safely accesses a property or method.
+--> Returns undefined if the property doesn’t exist.
+
+
 -----------------------------------------------------------
 
 # Equality in JS
@@ -198,7 +278,27 @@ null == undefined // true
 
 # Every Data-type : typeof
 
-All the data-type has same typeof except some of the:
+* typeof(NaN) returns a number.
+
+* 'typeof' operator returns value in a string type.
+Example: function check(x) {
+              if (typeof (x) === "number") {
+                  console.log("x is a number")
+              }
+              if (typeof (x) === "string") {
+                  console.log("x is a string")
+              }
+          }
+
+* Get data-type of various variable in object: 
+Example: let x = { k: 12, m: "geeky stuff" }
+
+console.log(typeof (x))   // object
+console.log(typeof (x.k)) // number
+console.log(typeof (x.m)) // string
+console.log(typeof (x.s)) // undefined
+
+* All the data-type has same typeof except some of the:
 
 1. Null : 'object'
 
