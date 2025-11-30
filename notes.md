@@ -383,7 +383,6 @@ console.log(typeof (x.s)) // undefined
 3. "Default parameters": are used when no argument is passed during function call, then function automatically uses the default value.
 Example: function greet(name = "Guest") {}
 
-4. Return in Function: When "return" executes, the function stops running at that point.
 
 * Type of Functions -->
 
@@ -463,18 +462,7 @@ function factorial(n) {
 }
 console.log(factorial(5)); // 120
 
-10. Higher-Order Function: A function that either takes another function as a parameter or returns another function. These are common in JavaScript (e.g., map, filter, reduce).
-Example:
-function multiplyBy(factor) {
-  return function(num) {
-    return num * factor;
-  };
-}
-
-const double = multiplyBy(2);
-console.log(double(5)); // 10
-
-11. Nested Functions: Functions defined within other functions are called nested functions. They have access to the variables of their parent function.
+10. Nested Functions: Functions defined within other functions are called nested functions. They have access to the variables of their parent function.
 Example:
 function outerFun(a) {
     function innerFun(b) {
@@ -486,12 +474,102 @@ function outerFun(a) {
 const addTen = outerFun(10);
 console.log(addTen(5));
 
-11. Pure Functions: Simple function, just do operations on passed parameters and return them.
-
-12. Rest Parameter Function: Uses ... to collect all remaining arguments into an array. Very useful when you don’t know how many arguments will be passed.
+11. Rest Parameter Function: Uses ... to collect all remaining arguments into an array. Very useful when you don’t know how many arguments will be passed.
 Example:
 function sum(...nums) {
   return nums.reduce((a, b) => a + b, 0);
 }
 console.log(sum(1, 2, 3, 4)); // 10
+
+--------------------------------------------
+
+# Higher-Order Function 
+
+* A higher-order function is a function that does one of the following:
+1. Takes another function as an argument.
+2. Returns another function as its result.
+
+Example: Take function argument.
+
+function fun() {
+    console.log("Hello, World!");
+}
+
+function fun2(fn) {
+    fn();
+    fn();
+}
+
+fun2(fun);
+
+O/P: Hello, World!
+     Hello, World!
+
+
+* Popular Higher Order Functions in JavaScript
+
+1. map function: Used to transform an array by applying a callback function to each element. It returns a new array.
+
+const n = [1, 2, 3, 4, 5];
+const square = n.map((num) => num * num);
+console.log(square);
+
+O/P: [1,4,9,16,25]
+
+--> map applies the callback '(num) => num * num' to each element of numbers.
+--> A new array is returned where each element is the 'square' of the original.
+
+2. filter function: Used to create a new array containing elements that satisfy a given condition.
+
+const n = [1, 2, 3, 4, 5];
+const even = n.filter((num) => num % 2 === 0);
+console.log(even);
+
+O/P: [2,4]
+
+The callback '(num) => num % 2 === 0' filters out elements not divisible by 2.
+The resulting array contains only even numbers.
+
+3. reduce function: Accumulates array elements into a single value based on a callback function.
+
+const n = [1, 2, 3, 4, 5];
+const sum = n.reduce((init, arrElement) => init + arrElement, 0);
+console.log(sum);
+
+O/P: 15
+
+--> The callback '(init, arrElement) => init + arrElement' adds all elements.
+--> 0 is the initial value of the 'init'.
+
+4. forEach function: Executes each array element. Not return any new array.
+
+const n = [1, 2, 3];
+n.forEach((num) => console.log(num * 2));
+
+O/P: 2, 4, 6
+
+5. find function: Returns the first element in the array that satisfies a given condition.
+
+const n = [1, 2, 3, 4, 5];
+const fEven = n.find((num) => num % 2 === 0);
+console.log(fEven); // 2
+
+--> The callback '(num) => num % 2 === 0' finds the first even number.
+--> If no element satisfies the condition, it returns 'undefined'.
+
+6. some function: Checks if at least one array element satisfies a condition.
+
+const n = [1, 2, 3, 4, 5];
+const hasNeg = n.some((num) => num < 0);
+console.log(hasNeg);
+
+--> It returns true if any element passes the condition, false otherwise.
+
+7. every function: Checks if all array elements satisfy a condition.
+
+const n = [1, 2, 3, 4, 5];
+const allPos = n.every((num) => num > 0); // checks if all numbers are positive.
+console.log(allPos)
+
+--> It returns true only if all elements pass the condition.
  
