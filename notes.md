@@ -335,11 +335,32 @@ console.log(typeof (x.s)) // undefined
 2. Heap Memory
  - Used for non-primitive data types (objects, arrays, functions).
 
- - Stores a reference (memory address) pointing to the object in heap.
+ - Note: When we create an array and store it in some variable than variable is created in 'Stack Memory' but its pointing towards an array which store/created on a 'Heap Memory', If another variable copy same array then its not create copy it simple refer that variable also to same array which in 'Heap Memory', so changes in any variable reflect to both variable because here copy is not create, only same reference given.
 
- - When assigned to another variable, the reference is copied, so both variables point to the same object.
+ - Variable Storage (Stack): When you declare an array, the variable name itself and its reference (a memory address) are stored in the Stack Memory.
+
+ - Data Storage (Heap): The actual array data is created in the Heap Memory. The heap is used for dynamic data structures that can grow or change in size.
+
+ - Copying Behavior (Reference): When you assign one array variable to another (e.g., let arr2 = arr1), JavaScript does not create a new array. It simply copies the memory address from the stack.
+
+ - Synchronized Changes: Because both variables point to the same location in the Heap, modifying the array through one variable will automatically reflect when you access it through the other. 
 
 ⚡ Important: Changes in one reference affect all variables pointing to that object.
+
+Example:
+
+Creation: let arr1 = [1, 2];
+
+Stack: arr1 -> Address 0x001
+Heap: Address 0x001 -> [1, 2]
+
+Assignment: let arr2 = arr1;
+Stack: arr2 -> Address 0x001 (same as arr1)
+
+Modification: arr2.push(3);
+
+Heap: Address 0x001 is now [1, 2, 3].
+Result: Both arr1 and arr2 now show [1, 2, 3]. 
 
 -----------------------------
 # 💡 Extra Interview Insights:
@@ -386,18 +407,23 @@ Example: function greet(name = "Guest") {}
 
 * Type of Functions -->
 
-1. Named Function :A function that has its own name when. It’s easy to reuse and debug because the name shows up in error messages or stack traces.
+1. Named Function :A function that has its own name when. It’s easy to reuse (in recursion, hard in anonymous func) and debug because the name shows up in error messages or stack traces.
 Example: 
 function greet() {  --> "greet" func name.
   return "Hello!";
 }
 
-2. Anonymous Function: A function that does not have a name. It is usually assigned to a variable or used as a callback. Since it has no name, it cannot be called directly. 
+2. Anonymous Function: Function that does not have any name associated with it. In anonymous functions in JavaScript, we use only the function keyword without the function name. `let greet = function(){}` An anonymous function is not accessible after its initial creation, it can only be accessed by a variable it is stored as a value.
+
+Example: Arrow functions are always anonymous function.
+let displayName = () => {
+  return "Hello!";
+}
 
 Note: You are not calling the anonymous function directly; you are calling the variable that holds a reference to that function & assigning anonymous-function variable called "Function Expression".
 
-Example: 
-const greet = function() {  --> func value save in "greet variable" but it's anonymous func.
+Example: func value save in "greet variable" but it's anonymous func.
+const greet = function() {
   return "Hi there!";
 };
 console.log(greet());
@@ -408,18 +434,30 @@ A new way to write functions using the => syntax. They do not have their own 'th
 Example: const square = n => n * n;   input: square(3) output: 9
 
 4. Immediately Invoked Function Expression (IIFE): are executed immediately after code run without calling function specifically. They are often used to create isolated scopes or any function which programs required to run at start of the execution.
-Example: 
+
+Example: Anonymous IIFE functions
 (function () {
     console.log("This runs immediately!");
+})();
+    
+// Using arrow functions
+(() => {
+    console.log("This runs immediately!");
+})();
+
+* Named IIFE: You can provide a name to the function expression. This name is only accessible inside the function itself and is useful for recursion or clearer stack traces during debugging.
+
+(function myPrivateFunction() {
+    console.log("I have a name, but you can't call me from outside!");
 })();
 
 5. Callback Functions: is passed as an argument to another function and is executed after the completion of that function.
 Example:
-function num(n, func) {
-    return func(n);
-}
-
 const numSquare = (n) => n * n;
+
+function num(n, callback) {
+    return callback(n);
+}
 
 console.log(num(5, numSquare)); // output: 25
 
@@ -483,7 +521,7 @@ console.log(sum(1, 2, 3, 4)); // 10
 
 --------------------------------------------
 
-# Higher-Order Function 
+12. Higher-Order Function 
 
 * A higher-order function is a function that does one of the following:
 1. Takes another function as an argument.
@@ -506,9 +544,9 @@ O/P: Hello, World!
      Hello, World!
 
 
-* Popular Higher Order Functions in JavaScript
+* Popular Higher Order Functions in JavaScript -->
 
-1. map function: Used to transform an array by applying a callback function to each element. It returns a new array.
+* a. map function: Used to transform an array by applying a callback function to each element. It returns a new array.
 
 const n = [1, 2, 3, 4, 5];
 const square = n.map((num) => num * num);
@@ -519,7 +557,7 @@ O/P: [1,4,9,16,25]
 --> map applies the callback '(num) => num * num' to each element of numbers.
 --> A new array is returned where each element is the 'square' of the original.
 
-2. filter function: Used to create a new array containing elements that satisfy a given condition.
+* b. filter function: Used to create a new array containing elements that satisfy a given condition.
 
 const n = [1, 2, 3, 4, 5];
 const even = n.filter((num) => num % 2 === 0);
@@ -530,7 +568,7 @@ O/P: [2,4]
 The callback '(num) => num % 2 === 0' filters out elements not divisible by 2.
 The resulting array contains only even numbers.
 
-3. reduce function: Accumulates array elements into a single value based on a callback function.
+* c. reduce function: Accumulates array elements into a single value based on a callback function.
 
 const n = [1, 2, 3, 4, 5];
 const sum = n.reduce((init, arrElement) => init + arrElement, 0);
@@ -541,14 +579,14 @@ O/P: 15
 --> The callback '(init, arrElement) => init + arrElement' adds all elements.
 --> 0 is the initial value of the 'init'.
 
-4. forEach function: Executes each array element. Not return any new array.
+* d. forEach function: Executes each array element. Not return any new array.
 
 const n = [1, 2, 3];
 n.forEach((num) => console.log(num * 2));
 
 O/P: 2, 4, 6
 
-5. find function: Returns the first element in the array that satisfies a given condition.
+* e. find function: Returns the first element in the array that satisfies a given condition.
 
 const n = [1, 2, 3, 4, 5];
 const fEven = n.find((num) => num % 2 === 0);
@@ -557,7 +595,7 @@ console.log(fEven); // 2
 --> The callback '(num) => num % 2 === 0' finds the first even number.
 --> If no element satisfies the condition, it returns 'undefined'.
 
-6. some function: Checks if at least one array element satisfies a condition.
+* f. some function: Checks if at least one array element satisfies a condition.
 
 const n = [1, 2, 3, 4, 5];
 const hasNeg = n.some((num) => num < 0);
@@ -565,11 +603,21 @@ console.log(hasNeg);
 
 --> It returns true if any element passes the condition, false otherwise.
 
-7. every function: Checks if all array elements satisfy a condition.
+* g. every function: Checks if all array elements satisfy a condition.
 
 const n = [1, 2, 3, 4, 5];
 const allPos = n.every((num) => num > 0); // checks if all numbers are positive.
 console.log(allPos)
 
 --> It returns true only if all elements pass the condition.
+
+--------------------------------------------
+
+## Some Important function articles for interview point of view:
  
+1. Currying function : https://www.geeksforgeeks.org/javascript/what-is-currying-function-in-javascript/
+
+2. setTimeout() function : https://www.geeksforgeeks.org/javascript/setTimeout-in-JavaScript/
+
+3. Importing one JavaScript file into another : Example: Prgm- 6 & 7
+
