@@ -465,13 +465,35 @@ console.log(num(5, numSquare)); // output: 25
 
 Example: Here 'this' keyword are used, to create an obj.
 
-function Person(name, age) {
-  this.name = name;
-  this.age = age;
+class User {
+  constructor(name = "Guest", role = "Viewer") {
+    this.name = name;
+    this.role = role;
+  }
 }
 
-const user = new Person("Neha", 22);
-console.log(user.name); // Neha
+const user = new User("Dev", "Admin");
+console.log(user.name); // Dev
+console.log(user.role); // Admin
+
+const anon = new User(); //  No Argument Passed
+console.log(anon.name); // Guest (Default Parameters)
+console.log(anon.role); // Viewer (Default Parameters)
+
+Example:
+// Passing Argument as a 'Object'
+class Car {
+  constructor({ brand, model, year = 2025 }) {
+    this.brand = brand;
+    this.model = model;
+    this.year = year;
+  }
+}
+
+const car = new Car({brand: 'tata', model:'nano'});
+console.log(car.brand, car.model, car.year); // tata nano 2025
+
+<!-- Note: In modern JS (ES6+), constructor functions are "wrapped" inside classes primarily to provide a more structured, readable, and safe way to handle object-oriented programming (OOP).  -->
 
 7. Async Function: Functions that handle asynchronous tasks. Declared with async, they return a Promise, and you can use await inside them to pause until another Promise resolves.
 Example:
@@ -503,14 +525,13 @@ console.log(factorial(5)); // 120
 10. Nested Functions: Functions defined within other functions are called nested functions. They have access to the variables of their parent function.
 Example:
 function outerFun(a) {
-    function innerFun(b) {
+    return innerFun = (b) => {
         return a + b;
     }
-    return innerFun;
 }
 
 const addTen = outerFun(10);
-console.log(addTen(5));
+console.log(addTen(5)); // 15
 
 11. Rest Parameter Function: Uses ... to collect all remaining arguments into an array. Very useful when you don’t know how many arguments will be passed.
 Example:
@@ -523,16 +544,17 @@ console.log(sum(1, 2, 3, 4)); // 10
 
 12. Higher-Order Function 
 
-* A higher-order function is a function that does one of the following:
+* A higher-order function is a function that does one of the following or both:
 1. Takes another function as an argument.
 2. Returns another function as its result.
 
-Example: Take function argument.
+Example: 
 
 function fun() {
     console.log("Hello, World!");
 }
 
+<!-- High Order Function -->
 function fun2(fn) {
     fn();
     fn();
@@ -546,7 +568,7 @@ O/P: Hello, World!
 
 * Popular Higher Order Functions in JavaScript -->
 
-* a. map function: Used to transform an array by applying a callback function to each element. It returns a new array.
+1. map function: Used to transform an array by applying a callback function to each element. It returns a new array.
 
 const n = [1, 2, 3, 4, 5];
 const square = n.map((num) => num * num);
@@ -554,10 +576,10 @@ console.log(square);
 
 O/P: [1,4,9,16,25]
 
---> map applies the callback '(num) => num * num' to each element of numbers.
---> A new array is returned where each element is the 'square' of the original.
+<!-- map send each element as an argument '(num) => num * num'. -->
+<!-- A new array is returned. -->
 
-* b. filter function: Used to create a new array containing elements that satisfy a given condition.
+2. filter function: Used to create a new array containing elements that satisfy a given condition.
 
 const n = [1, 2, 3, 4, 5];
 const even = n.filter((num) => num % 2 === 0);
@@ -565,10 +587,10 @@ console.log(even);
 
 O/P: [2,4]
 
-The callback '(num) => num % 2 === 0' filters out elements not divisible by 2.
-The resulting array contains only even numbers.
+ <!-- The callback '(num) => num % 2 === 0' filters out elements not divisible by 2. -->
+ <!-- The resulting array contains only even numbers. -->
 
-* c. reduce function: Accumulates array elements into a single value based on a callback function.
+3. reduce function: Accumulates array elements into a single value based on a callback function.
 
 const n = [1, 2, 3, 4, 5];
 const sum = n.reduce((init, arrElement) => init + arrElement, 0);
@@ -576,40 +598,40 @@ console.log(sum);
 
 O/P: 15
 
---> The callback '(init, arrElement) => init + arrElement' adds all elements.
---> 0 is the initial value of the 'init'.
+ <!-- The callback '(init, arrElement) => init + arrElement' adds all elements. -->
+ <!-- 0 is the initial value = 'init'. -->
 
-* d. forEach function: Executes each array element. Not return any new array.
+4. forEach function: Executes each array element. Not return any new array.
 
 const n = [1, 2, 3];
 n.forEach((num) => console.log(num * 2));
 
 O/P: 2, 4, 6
 
-* e. find function: Returns the first element in the array that satisfies a given condition.
+5. find function: Returns the first element in the array that satisfies a given condition.
 
 const n = [1, 2, 3, 4, 5];
 const fEven = n.find((num) => num % 2 === 0);
 console.log(fEven); // 2
 
---> The callback '(num) => num % 2 === 0' finds the first even number.
---> If no element satisfies the condition, it returns 'undefined'.
+ <!-- The callback '(num) => num % 2 === 0' finds the first even number. -->
+ <!-- If no element satisfies the condition, it returns 'undefined'. -->
 
-* f. some function: Checks if at least one array element satisfies a condition.
+6. some function: Checks if at least one array element satisfies a condition.
 
 const n = [1, 2, 3, 4, 5];
 const hasNeg = n.some((num) => num < 0);
 console.log(hasNeg);
 
---> It returns true if any element passes the condition, false otherwise.
+ <!-- It returns true if any element passes the condition, false otherwise. -->
 
-* g. every function: Checks if all array elements satisfy a condition.
+7. every function: Checks if all array elements satisfy a condition.
 
 const n = [1, 2, 3, 4, 5];
 const allPos = n.every((num) => num > 0); // checks if all numbers are positive.
 console.log(allPos)
 
---> It returns true only if all elements pass the condition.
+ <!-- It returns true only if all elements pass the condition. -->
 
 --------------------------------------------
 
@@ -621,3 +643,118 @@ console.log(allPos)
 
 3. Importing one JavaScript file into another : Example: Prgm- 6 & 7
 
+--------------------------------------------
+
+## Advanced Techniques with Higher Order Functions
+
+1. Function Composition: is the process of combining multiple functions to create a new function. The composed function applies multiple operations in sequence.
+
+Example: 
+<!-- Function-1 -->
+function add(x) {  <!-- Parameter: f -->
+    return x + 2;
+}
+
+<!-- Function-2 -->
+function mul(x) {  <!-- Parameter: g -->
+    return x * 3;
+}
+
+<!-- Function-Compose -->
+function compose(f, g) {
+    return function(x) {
+        return f(g(x));
+  };
+}
+var res = compose(add, mul)(4);
+console.log(res); <!-- Output: 14 -->
+
+Output: x=4 --> g(4) --> (4*3 = 12) --> f(6) --> (12+2 = 14)
+
+<!-- 
+  High-order function: LeetCode Problem
+
+  Given an array of functions [f1, f2, f3, ..., fn], return a new function that is the function composition of the array of functions.
+
+  'function composition' of the array of functions is that iterate from last to first position.
+
+  Example:
+
+  Input: functions = [x => x + 1, x => x * x, x => 2 * x], x = 4
+  Output: 65
+
+  Input: functions = [x => 10 * x, x => 10 * x, x => 10 * x], x = 1
+  Output: 1000
+
+
+  Code:
+
+  let compose = function(functions) {
+      
+      return function fn(x) {
+          let result = x;
+          for(let i=functions.length-1; i>=0; i--) {
+              result = functions[i](result);
+          }
+          return result;
+      }
+  };
+
+ -->
+
+
+ 2. Currying: transforms a function that takes multiple arguments into a series of functions that each take one argument. This allows partial application of the function.
+
+ Example:
+
+  function mul(x) {
+    return function(y) {
+        return x * y;
+    };
+  }
+  
+  var mulFn = mul(2);
+  console.log(mulFn(5));  <!-- Output: x=2, y=5 : 10 -->
+
+  <!-- Confusion-Point: 
+        var mulFn = mul(x=2);
+
+        mulFn = function(y) {
+                    return x * y;
+                };
+
+        mulFn(y=5) pass argument to the inner func.
+   -->
+
+
+   3. Memoization: is a technique where function results are 'cached' so that repeated calls with the same arguments return faster. This is particularly useful for expensive function calls.
+
+   Example:
+
+   function memoize(func) {
+      var cache = {};
+      return function (arg) {
+          if (cache[arg]) {
+              return cache[arg];
+          } else {
+              var res = func(arg);
+              cache[arg] = res;
+              return res;
+          }
+      };
+    }
+
+    function slow(num) {
+        console.log("Computing...");
+        return num * 2;
+    }
+
+    var fast = memoize(slow);
+    console.log(fast(5)); // Computing... 10
+    console.log(fast(5)); // 10 (cached)
+
+    <!-- memoize caches the results of slowFunction calls. The second time fast(5) is called, the result is fetched from the cache, avoiding recomputation. 
+    This optimization improves performance by saving on redundant calculations. -->
+
+
+    
