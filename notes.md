@@ -162,6 +162,7 @@ Example: (n3 = Infinity or -Infinity)
 
 2. Null => A standalone value in JavaScript that can be assigned to a variable. For example, when representing temperature, we can’t use 0 (since zero is also a valid temperature), so we use null to show no value.
   - It is type: 'Object'
+  <!-- In JavaScript, typeof null returns "object" due to a long-standing bug in the language. -->
 
 3. Undefined => A default value in JavaScript for variables that are declared but not yet assigned any value.
   - It is type: 'undefined'
@@ -404,6 +405,12 @@ Result: Both arr1 and arr2 now show [1, 2, 3].
 3. "Default parameters": are used when no argument is passed during function call, then function automatically uses the default value.
 Example: function greet(name = "Guest") {}
 
+4. Functions in JavaScript have a '.name' property.
+<!-- 
+const x = () => {}
+console.log(x.name); // 'x'
+-->
+
 
 * Type of Functions -->
 
@@ -463,7 +470,7 @@ console.log(num(5, numSquare)); // output: 25
 
 6. Constructor Function: A function used to create a constructor obj, which is creating multiple objects with the same structure. It’s called with the 'new' keyword.
 
-Example: Here 'this' keyword are used, to create an obj.
+Example: Refer--> (prgm-8), Here 'this' keyword are used to create an obj.
 
 class User {
   constructor(name = "Guest", role = "Viewer") {
@@ -601,6 +608,19 @@ O/P: 15
  <!-- The callback '(init, arrElement) => init + arrElement' adds all elements. -->
  <!-- 0 is the initial value = 'init'. -->
 
+ <!-- 
+ Example: Program for Filter, Map, & Reduce.
+
+ const arr = [1,2,3,4,5,6];
+  const result = arr.filter(num => num % 2===0)
+              .map(num => num * 2)
+              .reduce((acc, curr) => acc + curr, 0);
+  console.log(result); 
+
+  Output: 24
+  First, array elements are filtered, resulting [2, 4, 6], then mapped to [4, 8, 12], then reduced to 24.
+  -->
+
 4. forEach function: Executes each array element. Not return any new array.
 
 const n = [1, 2, 3];
@@ -727,9 +747,9 @@ Output: x=4 --> g(4) --> (4*3 = 12) --> f(6) --> (12+2 = 14)
    -->
 
 
-   3. Memoization: is a technique where function results are 'cached' so that repeated calls with the same arguments return faster. This is particularly useful for expensive function calls.
+   3. Memoization: is a technique (not any inbuilt func.), where function results are 'cached' so that repeated calls with the same arguments return faster. This is particularly useful for large amt. of same function calls to fast the process.
 
-   Example:
+   Example: Prgm-7
 
    function memoize(func) {
       var cache = {};
@@ -754,7 +774,179 @@ Output: x=4 --> g(4) --> (4*3 = 12) --> f(6) --> (12+2 = 14)
     console.log(fast(5)); // 10 (cached)
 
     <!-- memoize caches the results of slowFunction calls. The second time fast(5) is called, the result is fetched from the cache, avoiding recomputation. 
-    This optimization improves performance by saving on redundant calculations. -->
-
-
+    This optimization improves performance by saving on redundant calculations. 
     
+    Leetcode problem on memoize:
+
+    function memoize(fn) {
+
+      // 1. Initialize a cache and a counter
+      const cache = new Map();
+      let callCount = 0;
+
+      const memoizedFn = function(...args) {
+          // 2. Create a unique key based on the arguments
+          // JSON.stringify ensures [1, 2] is a different key than [12]
+          const key = JSON.stringify(args);
+
+          // 3. Check if the key exists in the cache
+          if (cache.has(key)) {
+              return cache.get(key);
+          }
+
+          // 4. If not in cache, call the function and increment counter
+          callCount++;
+          const result = fn(...args);
+          
+          // 5. Store the result in cache and return it
+          cache.set(key, result);
+          return result;
+      }
+
+      // 6. Attach a helper method to get the call count (required by the problem)
+      memoizedFn.getCallCount = function() {
+          return callCount;
+      };
+
+      return memoizedFn;
+    }
+    -->
+
+-----------------------------------------------------------
+
+# Arrays
+
+- An array is an ordered list of values. 
+- In JS, arrays can hold any type of data-such as numbers, strings, objects, or even other arrays—making them a flexible array data-structure.
+
+- 'typeof' of an array is 'object'.
+
+1. Creating array using 'literal' method:
+<!-- let a = [] -->
+
+2. Creating array using 'new-keyword/ Array Constructor' :
+<!-- let a = new Array() -->
+
+Note: Both the above methods do exactly the same. Use the 'literal method' for efficiency, readability, and speed.
+
+Bug: <!-- let a = [5] --> & <!-- let a = new Array(5) --> are not same.
+
+- in 1st: arr output: [5] --> (Element 5 at idx 0 is created).
+- in 2nd: arr output: [ <5 empty items> ] --> (Empty array with space of 5 is created).
+
+Imp: <!-- let a = [1,2,3] --> & <!-- let a = new Array(1,2,3) --> are same.
+
+## Array Built-in methods:
+
+1. 'Push' & 'Pop' : 
+  - 'push' is used to add new element in array from 'end'.
+  - 'pop' is used to remove element in array from 'end'.
+  Example: 
+  <!-- 
+    let arr = [1,2,3];
+    arr.push(4) -- arr = [1,2,3,4];
+    arr.pop() -- arr = [1,2,3];
+   -->
+
+2. 'Unshift' & 'Shift' :
+  - 'unshift' is used to add new element in array from 'start'.
+  - 'shift' is used to remove element in array from 'start'.
+  Example: 
+  <!-- 
+    let arr = [1,2,3];
+    arr.unshift(4) -- arr = [4,1,2,3];
+    arr.shift() -- arr = [1,2,3];
+   -->
+
+3. 'Slice' & 'Splice' :
+  - 'Slice' method 'copy' the element of a given range, i.e. start idx & end idx (excluded).
+  Note: 'Slice' method return new array. No changes in original array.
+  <!-- 
+  let arr1 = [1,2,3,4];
+
+  console.log(arr1.slice(0,2));
+  console.log(arr1); 
+  
+  Output: [ 1, 2 ]
+          [ 1, 2, 3, 4 ] -- OG Array Unchanged.
+   -->
+
+  - 'Splice' method 'cut' the element of a given range, i.e. start idx & end idx (excluded).
+  Note: 'Splice' method return new array. Make changes in original array.
+  <!-- 
+  let arr2 = [4,5,6,7];
+
+  console.log(arr2.splice(0,2));
+  console.log(arr2); 
+  
+  Output: [ 4, 5 ]
+          [ 6, 7 ] -- OG Array Changed/ Modified.
+   -->
+
+4. Array Concatenation: Combine two or more arrays using the concat() method. 
+Note: It returns new array containing joined arrays elements.
+
+<!-- 
+    let a = ["HTML", "CSS", "JS", "React"];
+    let b = ["Node", "Expess"];
+
+    // Concatenate both arrays
+    let concateArray = a.concat(b);
+
+    console.log(concateArray);
+
+    Output: [ 'HTML', 'CSS', 'JS', 'React', 'Node', 'Expess' ]
+ -->
+
+5. Conversion of an Array to String: Builtin method toString() to converts an array to a string.
+
+<!-- 
+    let a = ["HTML", "CSS", "JS"];
+
+    // Convert array ot String
+    console.log(a.toString());
+
+    Output: 'HTML,CSS,JS'
+ -->
+
+6. Recognize Array: Using  'Array.isArray()' & 'instanceof' method.
+
+<!-- 
+    const courses = ["HTML", "CSS", "Javascript"];
+
+    console.log(Array.isArray(courses))   // true
+    console.log(courses instanceof Array) // true
+ -->
+-------------------------------------
+
+* Increase and Decrease the Array Length
+  - We can increase and decrease the array length using the JavaScript length property.
+
+  <!-- 
+    let a = ["HTML", "CSS", "JS"]
+
+    // Increase the array length to 7
+    a.length = 7;
+
+    console.log("Increased Length: ", a);
+
+    // Decrease the array length to 2
+    a.length = 2;
+    console.log("Decreased Length: ", a)
+
+    Output:
+
+    Increased Length:  [ 'HTML', 'CSS', 'JS', <4 empty items> ]
+    Decreased Length:  [ 'HTML', 'CSS' ]
+   -->
+
+* Iterate array using 'forEach loop':
+<!-- 
+    let arr = ["HTML", "CSS", "JS"];
+
+    arr.forEach((x) => {
+        console.log(x);
+    });
+ -->
+
+
