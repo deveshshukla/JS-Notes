@@ -575,7 +575,7 @@ O/P: Hello, World!
 
 * Popular Higher Order Functions in JavaScript -->
 
-1. map function: Used to transform an array by applying a callback function to each element. It returns a new array.
+1. 'Map' function: Used to transform an array by applying a callback function to each element. It returns a new array.
 
 const n = [1, 2, 3, 4, 5];
 const square = n.map((num) => num * num);
@@ -586,7 +586,10 @@ O/P: [1,4,9,16,25]
 <!-- map send each element as an argument '(num) => num * num'. -->
 <!-- A new array is returned. -->
 
-2. filter function: Used to create a new array containing elements that satisfy a given condition.
+
+2. 'Filter' function: Used to create a new array containing elements that satisfy a given condition. 
+
+<!-- It iterates through each element of the array and invokes the callback function for each element. If the callback function returns true for an element, that element is included in the new array; otherwise, it is excluded. -->
 
 const n = [1, 2, 3, 4, 5];
 const even = n.filter((num) => num % 2 === 0);
@@ -597,7 +600,10 @@ O/P: [2,4]
  <!-- The callback '(num) => num % 2 === 0' filters out elements not divisible by 2. -->
  <!-- The resulting array contains only even numbers. -->
 
-3. reduce function: Accumulates array elements into a single value based on a callback function.
+
+3. 'Reduce' function: Accumulates array elements into a single value based on a callback function.
+
+<!-- It executes a provided callback function once for each element in the array, resulting in a single output value. The callback function takes four arguments: accumulator, currentValue, currentIndex, and the array itself. -->
 
 const n = [1, 2, 3, 4, 5];
 const sum = n.reduce((init, arrElement) => init + arrElement, 0);
@@ -883,7 +889,7 @@ Imp: <!-- let a = [1,2,3] --> & <!-- let a = new Array(1,2,3) --> are same.
           [ 6, 7 ] -- OG Array Changed/ Modified.
    -->
 
-4. Array Concatenation: Combine two or more arrays using the concat() method. 
+4. Array 'Concatenation': Combine two or more arrays using the concat() method. 
 Note: It returns new array containing joined arrays elements.
 
 <!-- 
@@ -917,6 +923,70 @@ Note: It returns new array containing joined arrays elements.
     console.log(Array.isArray(courses))   // true
     console.log(courses instanceof Array) // true
  -->
+
+7. 'join()' Method: Creates and returns a new string by concatenating all elements of an array. 
+Note: We can pass optional specified separator between each element in the resulting string.
+
+<!-- 
+  let a = ["HTML", "CSS", "JS", "React"];
+  console.log(a.join(', '));
+
+  Output: HTML, CSS, JS, React
+ -->
+
+8. 'flat()' Method: Used to flatten the array i.e. it merges all the nested arrays into single array.
+  * Non-Mutating: It returns a new array and does not modify the original array.
+  * Depth Control: You can specify how deep the flattening should go. The default depth is 1.
+  * Cleans Data: It automatically removes empty slots (holes) in sparse arrays. 
+
+  Note: depth (Optional): An integer specifying how many levels of nesting to flatten. 
+  - Default is level-1 (Single Level Flattening), Level-2 (Multi-Level Flattening)
+  - 'Infinity' --> To flatten an array of any depth into a single dimension.
+<!-- 
+  const a1 = [['1', '2'], ['3', '4', '5',['6'], '7']];
+  const a2 = a1.flat(Infinity);
+  
+  Output: ['1', '2', '3', '4', '5', '6', '7']
+ -->
+
+ Note: Also remove empty space in between Array
+ <!-- 
+    const arr = [1, , 3, 4, , 5];
+    arr.flat(); // [1, 3, 4, 5]
+  -->
+
+9. 'indexOf(element)'--> return idx of element & 'includes(element)'--> return true/false.
+
+10. 'fill()' method: fills the array with specified given element.
+<!-- 
+  1st: Fill Empty Array
+  let arr = new Array(5);
+
+  arr.fill(10); // [10, 10, 10, 10, 10]
+
+  2nd: Overwrite previous element
+  let arr = [1,2,3];
+
+  arr.fill(10); // [10,10,10]
+ -->
+
+11. 'reverse()' --> simple reverse the arr
+<!-- arr.reverse() = [3,2,1] -->
+
+12. 'sort()' method: 
+  - In-Place Mutation: It modifies the original array rather than creating a new one.
+
+  - Default Sorting: Without a compare function, it converts elements to strings and compares their UTF-16 code unit values. This can cause unexpected results for numbers (e.g., 100 comes before 25 because "1" < "2").
+
+  <!-- 
+  Example:
+
+  1. Numbers (Ascending): arr.sort((a, b) => a - b)
+  2. Numbers (Descending): arr.sort((a, b) => b - a)
+  3. Strings (Case-Insensitive): arr.sort((a, b) => a.localeCompare(b))
+  4. Array of Objects: users.sort((a, b) => a.age - b.age)
+   -->
+
 -------------------------------------
 
 * Increase and Decrease the Array Length
@@ -938,6 +1008,8 @@ Note: It returns new array containing joined arrays elements.
 
     Increased Length:  [ 'HTML', 'CSS', 'JS', <4 empty items> ]
     Decreased Length:  [ 'HTML', 'CSS' ]
+
+    Note: In JS arrays are flexible so there is no such need to 'Incr's/ Decr's' length of array as such.
    -->
 
 * Iterate array using 'forEach loop':
