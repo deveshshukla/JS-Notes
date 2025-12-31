@@ -983,8 +983,63 @@ Note: We can pass optional specified separator between each element in the resul
 
   1. Numbers (Ascending): arr.sort((a, b) => a - b)
   2. Numbers (Descending): arr.sort((a, b) => b - a)
-  3. Strings (Case-Insensitive): arr.sort((a, b) => a.localeCompare(b))
+  3. Imp: Strings (Dictionary based): arr.sort((a, b) => a.localeCompare(b))
   4. Array of Objects: users.sort((a, b) => a.age - b.age)
+   -->
+
+13. 'Spread' Operator: In JS, the spread operator (...variableName) is used to 'expand' single element into individual elements or properties, (like array, string, or object).
+
+  - Copying Arrays & Objects: It creates a shallow copy, meaning only the first level is duplicated.
+    <!-- 
+      const original = [1, 2, 3];
+      const copy = [...original]; 
+    -->
+
+  - Merging Iterables: You can combine multiple arrays or objects into one.
+    <!-- 
+      const merged = [...arr1, ...arr2];
+      const mergedObj = { ...obj1, ...obj2 }; (Note: Duplicate keys are overwritten by the last object spread).
+    -->
+
+  - Function Arguments: It allows you to pass an array of values as individual arguments.
+    <!-- 
+      const nums = [5, 10, 2];
+      Math.max(...nums); // Evaluates as Math.max(5, 10, 2) 
+    -->
+
+  - Strings to Arrays: Spreading a string breaks it into an array of individual characters.
+    <!-- const chars = [..."Hello"]; // ["H", "e", "l", "l", "o"] -->
+
+
+14. 'Rest' Operator: In JS, the rest operator (...variableName) is used to gather multiple elements into a 'single collection', such as an array or an object.
+
+  - Rest Parameters in Functions: Most common use in a function parameter, where it allows a function to accept an indefinite number of arguments as an array. 
+  
+  Note: It must be the last parameter in the function definition.
+
+  <!-- 
+    function sum(...numbers) {
+      // 'numbers' is an actual array: [1, 2, 3, 4]
+      return numbers.reduce((total, n) => total + n, 0);
+    }
+    console.log(sum(1, 2, 3, 4)); // Output: 10
+   -->
+
+  - Rest in 'Array Destructuring': It can capture the "remaining" elements of an array during destructuring.
+  <!-- 
+    const [first, second, ...others] = [10, 20, 30, 40, 50];
+    console.log(first);  // 10
+    console.log(second); // 20
+    console.log(others); // [30, 40, 50]
+   -->
+
+  - Rest in Object Destructuring: Same as Array.
+  <!-- 
+    const user = { name: "Alice", age: 25, city: "New York", job: "Developer" };
+    const { name, ...details } = user;
+
+    console.log(name);    // "Alice"
+    console.log(details); // { age: 25, city: "New York", job: "Developer" }
    -->
 
 -------------------------------------
@@ -1021,4 +1076,204 @@ Note: We can pass optional specified separator between each element in the resul
     });
  -->
 
+-----------------------------------------------------------
 
+# Strings
+
+- In JavaScript, there is no character type (Similar to Python), so a single character also called a string.
+- Like Java and Python, strings are immutable in JS also.
+- In JS, we can create a String using String Literals & Template Literals.
+  1. String Literals: Strings defined in code using single quotes (') or double quotes (").
+  2. Template Literals: Specifically refers to strings using backticks (`)
+  Example: Template Literal: <!-- `Hello ${user.name}` -->
+
+  - We can create a multiline string using backticks with template literal.
+
+------------------------------------------
+* Basic Operations on JavaScript Strings:
+
+1. 'Substring' method: We can extract a portion of a string using the substring() method. By giving idx value (start + end+1) Exclude last one.
+<!-- 
+  let str = 'JavaScript Tutorial';
+
+  console.log(str.substring(0, 10)); // JavaScript
+ -->
+
+1. 'substr()' Method: Same as substring, here idx values are (start + num of character from there) include last one.
+<!-- 
+  console.log(str.substr(11, 8)); // Tutorial
+ -->
+
+2. 'indexOf()' method: Find the first index of a substring within a string.
+<!-- 
+  let s1 = 'def abc abc';
+  let i = s1.indexOf('abc');
+  ​
+  console.log(i); // 4 (include space also)
+ -->
+
+3. 'replace()' method: Replace substring of a string. 
+Note: By default, replace() only replaces the first occurrence. To replace all occurrences, use a regular expression with the 'g flag' Using regex or 'replaceAll()' method. The original string will remain unchanged.
+
+<!-- 
+  let str = 'Mind, Power, Power, Soul';
+
+  1st: console.log(str.replace('Power', 'Wealth')); // Mind, Wealth, Power, Soul
+
+  2nd: console.log(str.replace(/Power/g, 'Dream')); // Mind, Dream, Dream, Soul
+  
+  3rd: console.log(str.replaceAll(/Power/g, 'Money')); // Mind, Money, Money, Soul
+ -->
+
+4. Imp: 'localeCompare()' method: Used to compare any two strings 'lexicographically' (refers to a method of ordering or sorting based on the alphabetical arrangement used in dictionaries).
+
+Note: localeCompare() is a case-sensitive (a != A), to make it work we can use <!-- { sensitivity: "base" } --> option.
+
+ - (0) refers to same strings. 
+ - (-1) refers to string is alphabetically smaller than from which he is compared.
+ - (1) refers to string is alphabetically bigger than from which he is compared.
+
+ <!-- Example: 
+  let str = "banana";
+
+  let str1 = "apple";
+  let str2 = "banana";
+  let str3 = "cat";
+
+  console.log(str.localeCompare(str1)) // -1 (Lower)
+  console.log(str.localeCompare(str2)) // 0  (Same)
+  console.log(str.localeCompare(str3)) // 1  (Upper)
+  
+  Another way to write: console.log('Banana'.localeCompare(str)) // -1 (Case-Insensitive)
+
+  Imp: Sort string using this.
+  
+  let elements = ['gfg', 'geeksforgeeks', 'cse', 'department'];
+  let a = elements.sort((a, b) => a.localeCompare(b));
+
+  console.log(a) // [ 'cse', 'department', 'geeksforgeeks', 'gfg' ]
+
+
+  Imp: To disable case-sensitivity
+  let str1 = "geeks";
+  let str2 = "GEEKS";
+  let result = str1.localeCompare(str2, undefined, { sensitivity: "base" });
+  console.log(result); 
+  
+  Output: 0 (both strings are same)
+  -->
+
+  Note: String created using literals <!-- str = 'Hello' --> are different then string created using 'new' keyword which is object. <!-- str = new String('Hello')-->
+
+
+* Others: (trim, pad, charAt, charCodeAt, etc.) [https://www.geeksforgeeks.org/batch/skill-up-complete-javascript-course/track/su-js-day6/article/NDM0NDEw]
+
+Note: (==) Loose Equality only check value, but Strict Equality (===) check both value and type of variable.
+
+Imp: String interpolation refers to construction of dynamic strings by embedding expressions or variables directly within a string literal. Using Template Literal, String.concat() Method, etc.
+
+
+-----------------------------------------------------------
+
+# Objects -- Program-9
+
+* An object is a dynamic data structure that stores data as key-value pairs. 'each keys are unique'.
+  
+  - The values of properties/keys can be primitives, objects, or functions (known as methods when defined inside an object).
+
+  - Objects are mutable: properties can be added, modified, or deleted at any time.
+
+  - Objects allow data grouping and encapsulation, making it easier to manage related information and behavior together.
+
+* There are two primary ways to create an object in JavaScript: 
+
+  1st: Using new Object() Constructor: It's kind of a 'Singleton Object'.
+  
+  - Not recommended in Modern ES6 JS.
+  [Slower, Riskier, More verbose --> (Takes more steps to achieve same result)]
+
+  <!-- 
+    let obj = new Object();
+    obj.name= "Dev",
+    obj.age= 23,
+    obj.job= "Developer"
+   -->
+  
+  - 'Singleton pattern', is a creational design pattern that ensures a class has only one instance and provides a global point of access to that instance.
+
+
+  2nd: Using Object Literal: It's not a 'Singleton Object'. 
+  
+  - Initialize an object with curly braces {}, setting properties as key-value pairs. [Faster, Safer, Highly readable and takes less space in code.]
+
+  - Keys are always converted to strings (except symbols).
+
+  <!-- 
+      let obj = {
+          name: "Dev",
+          age: 23,
+          job: "Developer"
+      };
+   -->
+
+  -----------------------------------
+
+  ## Basic Operations on JavaScript Objects
+
+  1. 2 ways to access object’s properties using either 'dot notation' or 'bracket notation'.
+
+  <!-- 
+    let mySbl = Symbol('Key');
+
+    let obj = { 
+      name: "Dev", 
+      age: 23,
+      "full name": 'Dev S',
+      [mySbl]: 'SecKey' // symbol as a key represent in bracket
+    };
+
+    // Using Dot Notation
+    console.log(obj.name);
+    console.log(obj.age);
+
+    // Using Bracket Notation
+    console.log(obj["full name"]);
+
+    console.log(obj[mySbl]); // no quotes for symbol
+  -->
+
+  - Imp: Certain properties like 'key' which have space in between or 'symbols' in JS (ES6) cannot be accessible through dot notations. Need to use bracket notation to access them.
+
+  
+  2. Modify, add, remove Object Properties
+  <!-- 
+    let obj = { name: "Dev", age: 22 };
+    console.log(obj);
+
+    obj.age = 28; // Modify age property
+    obj.height = '5ft 11inch'; // Add new property
+    console.log(obj);
+
+    delete obj.age; // Remove property
+    console.log(obj);
+   -->
+
+
+  3. Check Property Exists: We can check if an object contains a particular property using the 'in' operator or 'hasOwnProperty()' method.
+
+  <!-- 
+    console.log("age" in obj); // false ... because we removed the age property in above code
+
+    console.log(obj.hasOwnProperty("height")); // true
+  -->
+
+
+  4. Iterating Through Object Properties: using for...in loop
+  <!-- 
+    for(let key in obj) {
+      console.log(key + ": " + obj[key]);
+    }
+   -->
+
+
+  - Note: Factory vs. Constructor: Using 'literals' is often part of a Factory Pattern, whereas 'new keyword' is associated with Constructor Patterns or Classes.
