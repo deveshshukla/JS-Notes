@@ -1187,7 +1187,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
 * There are two primary ways to create an object in JavaScript: 
 
-  1st: Using new Object() Constructor: It's kind of a 'Singleton Object'.
+  1st: Using new Object() Constructor: It's kind of create 'Singleton Object'.
   
   - Not recommended in Modern ES6 JS.
   [Slower, Riskier, More verbose --> (Takes more steps to achieve same result)]
@@ -1216,11 +1216,17 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
       };
    -->
 
+
+   - Note: Factory vs. Constructor: Using 'literals' is often part of a Factory Pattern, whereas 'new keyword' is associated with Constructor Patterns or Classes.
+
   -----------------------------------
 
   ## Basic Operations on JavaScript Objects
 
   1. 2 ways to access object’s properties using either 'dot notation' or 'bracket notation'.
+
+    - Dot Notation: Simple and easy, works when the property name is a valid identifier.
+    - Bracket Notation: Useful when accessing properties dynamically or when the property name includes special characters or spaces.
 
   <!-- 
     let mySbl = Symbol('Key');
@@ -1261,6 +1267,9 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
   3. Check Property Exists: We can check if an object contains a particular property using the 'in' operator or 'hasOwnProperty()' method.
 
+    - in Operator: Checks if the property exists in the object or its prototype chain.
+    - hasOwnProperty(): Only checks properties owned directly by the object.
+
   <!-- 
     console.log("age" in obj); // false ... because we removed the age property in above code
 
@@ -1275,5 +1284,78 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
     }
    -->
 
+   Note: In JavaScript, Symbols are intentionally designed to be "invisible" to most standard ways of viewing or looping through an object.
 
-  - Note: Factory vs. Constructor: Using 'literals' is often part of a Factory Pattern, whereas 'new keyword' is associated with Constructor Patterns or Classes.
+   - Why Symbols "don't print" : Symbols are hidden by default to allow developers to add "private" or "metadata" properties to objects
+
+   - To "see" Symbols : Print or access the symbols in an object, use specific methods:
+
+      1. Object.getOwnPropertySymbols(obj): This is the most direct way to get an array of all symbolic keys on an object.
+
+      2. Reflect.ownKeys(obj): This returns all keys, including both standard string keys and hidden symbols.
+
+  
+  5. Merging Objects : Objects can be merged using 'Object.assign()' or the spread syntax { ...obj1, ...obj2 }.
+
+  <!-- 
+      let obj1 = { name: "Dev" };
+      let obj2 = { age: 23};
+
+      let obj3 = { ...obj1, ...obj2 };
+      console.log(obj3);
+   -->
+
+  6. Object Length : We can find the number of properties in an object using 'Object.keys(obj).length'
+
+--------------------------------------
+
+  - Imp: Freeze Method: standard way to make an object truly immutable. Once an object is frozen, you cannot add, remove, or change its properties.
+
+    1. Object.freeze(obj), the object becomes "read-only":
+    2. No New Properties: You cannot add new keys.
+    3. No Deletions: You cannot delete existing keys.
+    4. No Modifications: You cannot change the values of existing keys.
+    5. Non-Configurable: You cannot change the property
+
+    <!-- 
+      const user = {
+        name: "Alice",
+        role: "Admin"
+      };
+
+      Object.freeze(user);
+
+      user.name = "Bob";  // Fails silently (or throws TypeError in Strict Mode)
+     -->
+
+    
+    Note: Shallow" Limitation (Critical Interview Point)
+      
+      - Object.freeze() is shallow. If the object contains another object (a nested object), the inner object is not frozen.
+
+      - To fix this, you must implement a "Deep Freeze" by recursively freezing every nested object.
+
+      - Functional Programming: It helps enforce the rule that data should not be changed (immutability), which is a core concept in libraries like Redux or React.
+
+
+  ## Map Data Structure vs Obj:
+
+    1. Map : Stores key-value pairs and allows keys of any type (including objects).
+
+      Obj : Stores key-value pairs but keys are usually strings or symbols.
+
+    2. Map : Maintains the order of insertion.
+       
+       Obj : Does not guarantee key order.
+
+    3. Map : Has a built-in size property to get the number of entries.
+       
+       Obj : No built-in property for size.
+
+    4. Map : Better performance for frequent additions/removals of properties.
+       
+       Obj : May be slower for frequent additions/removals of properties.
+
+    5. Map : Can use any value (primitive or object) as a key.
+       
+       Obj : Keys are always converted to strings (except symbols).
