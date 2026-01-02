@@ -1359,3 +1359,23 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
     5. Map : Can use any value (primitive or object) as a key.
        
        Obj : Keys are always converted to strings (except symbols).
+
+--------------------------------------
+  
+  * Enumerable vs Non-Enumerable Properties
+  
+  - In JavaScript, Enumerability is a property attribute (a hidden flag) that determines whether a property "shows up" when you try to list or loop through an object's keys.
+
+  1. Enumerable Properties : These are the standard, "visible" properties of an object. 
+    
+    - Behavior: They appear in for...in loops, Object.keys(), Object.values(), and are included when using the spread operator (...) or JSON.stringify().
+
+    - Default: Any property you create via simple assignment (e.g., obj.name = "Alice") is enumerable by default. 
+
+  2. Non-Enumerable Properties : These are "hidden" properties that exist on the object but are skipped by most iteration methods. 
+
+    - Behavior: They do not show up in for...in loops or Object.keys().
+    - Still Accessible: They are not private; we can still access them directly if know the key name (e.g., obj.hiddenProperty).
+
+
+  Note: Properties can be marked as enumerable or non-enumerable using Object.defineProperty().

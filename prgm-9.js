@@ -49,3 +49,13 @@ console.log(obj3);
 
 //------ Find length of Obj ------
 console.log(`${Object.keys(obj3)} : ${Object.keys(obj3).length}`);
+
+
+//------ Obj enumerable or non-enumerable ------
+
+Object.defineProperty(obj, "id", {
+    value: 123,
+    enumerable: false // This makes 'id' non-enumerable
+});
+
+console.log(Object.keys(obj)); // id is hidden
