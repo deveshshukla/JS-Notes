@@ -59,3 +59,42 @@ Object.defineProperty(obj, "id", {
 });
 
 console.log(Object.keys(obj)); // id is hidden
+
+
+//------ Iterate over a JavaScript object ------
+
+let approach1 = () => {
+    console.log();
+    console.log('[Approach 1]: Using for...in Loop');
+
+    for (let objKey in obj3) {
+        console.log(`${objKey} : ${obj3[objKey]}`);
+    }
+}
+
+let approach2 = () => {
+    console.log();
+    console.log('[Approach 2]: Using Object.entries() and map()');
+    // Object.entries() returns an array of an object’s key-value pairs. 
+    // map() to access each pair, where index 0 is the key and index 1 is the value.
+
+    console.log(Object.entries(obj3));
+
+    Object.entries(obj3).map(entry => {
+        let key = entry[0], value = entry[1];
+        console.log(`${key} : ${value}`);
+    });
+}
+
+let approach3 = () => {
+    console.log();
+    console.log('[Approach 3]: Using forEach() and object.keys() Method');
+    // object.keys() Method returns an array of keys of the object. 
+    // forEach() method is an array method that allows you to iterate over each element in the array.
+
+    console.log(Object.keys(obj3));
+
+    Object.keys(obj3).forEach(k => {
+        console.log(`${k} : ${obj3[k]}`);
+    })
+}
