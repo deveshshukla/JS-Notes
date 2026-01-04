@@ -25,7 +25,7 @@ delete obj.age;
 console.log(obj);
 
 
-//------ Check property exist in object ------
+//------ Check obj has own property, not Inherited ------
 console.log("age" in obj); // false
 console.log(obj.hasOwnProperty("full name")); // true
 
