@@ -1409,3 +1409,38 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
  Note: Getters allow reading, and setters enable modifying properties in a controlled manner.
 
  ## Iterate over a JavaScript object --> Refer Prgm-9
+
+ ## Shallow Copy and Deep Copy in JavaScript
+
+ 1. Shallow Copy of Obj: A shallow copy occurs when you assign one object to another using the assignment operator (=). In this process, only the top-level properties are copied.
+ Imp: Nested objects or arrays still reference the original memory location. This means that if you change the nested properties in one object, those changes will reflect in the other because they share the same memory reference.
+
+ <!-- 
+    let objShallow = {...obj3};
+  -->
+
+ Note: Shallow copy issues occur only when the object contains nested objects or arrays.
+
+ 2. Deep Copy of Obj: A deep copy, on the other hand, creates a completely independent copy of the object, including all nested objects or arrays. This ensures that changes made to one object do not affect the other. 
+ Imp: Each object is stored in a separate memory location, making them entirely independent.
+
+ * Creating a Deep Copy: To create a deep copy of an object in JS we use JSON.parse() and JSON.stringify() methods.
+
+ <!-- 
+    let objDeep = JSON.parse(JSON.stringify(obj3));
+  -->
+
+  Note: Limitations of JSON.parse() and JSON.stringify() -->
+
+  - Functions, undefined, and certain other values are lost when using JSON.stringify().
+
+  - Date Objects (Dates) are converted to strings during the process, losing their original type.
+
+
+  3. Lodash To Deep Copy: It's a JS library that provides multiple utility functions and one of the most commonly used functions is the cloneDeep() method. 
+  Imp: This method helps to overcome limitation exists in JSON.stringify()
+
+  <!-- 
+      const lodash = require('lodash');
+      let deepCopy = lodash.cloneDeep(obj3);
+   -->
