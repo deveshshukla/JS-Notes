@@ -1202,7 +1202,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
   - 'Singleton pattern', is a creational design pattern that ensures a class has only one instance and provides a global point of access to that instance.
 
 
-  2nd: Using Object Literal: It's not a 'Singleton Object'. 
+  2nd: Using Object Literal: Recommended way to create an Object. 
   
   - Initialize an object with curly braces {}, setting properties as key-value pairs. [Faster, Safer, Highly readable and takes less space in code.]
 
@@ -1268,7 +1268,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
   3. Check Property Exists: We can check if an object contains a particular property using the 'in' operator or 'hasOwnProperty()' method.
 
     - in Operator: Checks if the property exists in the object or its prototype chain.
-    - hasOwnProperty(): Only checks properties owned directly by the object.
+    - hasOwnProperty(): Only checks properties owned directly by the object, not nested one.
 
   <!-- 
     console.log("age" in obj); // false ... because we removed the age property in above code
@@ -1298,14 +1298,21 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
   5. Merging Objects : Objects can be merged using 'Object.assign()' or the spread syntax { ...obj1, ...obj2 }.
 
   <!-- 
-      let obj1 = { name: "Dev" };
-      let obj2 = { age: 23};
+      // One way : Object.assign(target, source's);
+      let obj3 = Object.assign({}, obj1, obj2, obj3...objN);
 
+      // Another way : Simple & Easy Using (Spread Operator)
       let obj3 = { ...obj1, ...obj2 };
-      console.log(obj3);
    -->
 
-  6. Object Length : We can find the number of properties in an object using 'Object.keys(obj).length'
+  6. Acesses Object Keys, Values, length etc.
+  <!-- 
+      Object.keys(obj)    -- gives keys array
+      Object.values(obj)  -- gives values array
+      Object.entries(obj) -- gives [key, value] nested array.
+
+      Object.keys/values/entries(obj).length
+   -->
 
 --------------------------------------
 
