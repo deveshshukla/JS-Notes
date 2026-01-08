@@ -779,43 +779,8 @@ Output: x=4 --> g(4) --> (4*3 = 12) --> f(6) --> (12+2 = 14)
     console.log(fast(5)); // Computing... 10
     console.log(fast(5)); // 10 (cached)
 
-    <!-- memoize caches the results of slowFunction calls. The second time fast(5) is called, the result is fetched from the cache, avoiding recomputation. 
-    This optimization improves performance by saving on redundant calculations. 
-    
-    Leetcode problem on memoize:
-
-    function memoize(fn) {
-
-      // 1. Initialize a cache and a counter
-      const cache = new Map();
-      let callCount = 0;
-
-      const memoizedFn = function(...args) {
-          // 2. Create a unique key based on the arguments
-          // JSON.stringify ensures [1, 2] is a different key than [12]
-          const key = JSON.stringify(args);
-
-          // 3. Check if the key exists in the cache
-          if (cache.has(key)) {
-              return cache.get(key);
-          }
-
-          // 4. If not in cache, call the function and increment counter
-          callCount++;
-          const result = fn(...args);
-          
-          // 5. Store the result in cache and return it
-          cache.set(key, result);
-          return result;
-      }
-
-      // 6. Attach a helper method to get the call count (required by the problem)
-      memoizedFn.getCallCount = function() {
-          return callCount;
-      };
-
-      return memoizedFn;
-    }
+    <!-- memoize caches the results of 'slow' function calls. The second time fast(5) is called, the result is fetched from the cache, avoiding recomputation. 
+    This optimization improves performance by saving on redundant calculations.
     -->
 
 -----------------------------------------------------------
@@ -1305,13 +1270,27 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
       let obj3 = { ...obj1, ...obj2 };
    -->
 
-  6. Acesses Object Keys, Values, length etc.
+  6. Obtain Object Keys, Values, length etc.
   <!-- 
       Object.keys(obj)    -- gives keys array
       Object.values(obj)  -- gives values array
-      Object.entries(obj) -- gives [key, value] nested array.
+      Object.entries(obj) -- gives [[key, value]] nested array.
 
       Object.keys/values/entries(obj).length
+   -->
+
+  7. Object Destructuring : Useful in API Call & React
+  <!-- 
+      let course = {
+        'instructor' : 'Dev'
+      }
+
+      
+      1st: let {instructor} = course;
+           console.log(instructor) // Same as 'course.instructor'
+
+      2nd: let {instructor: teacher} = course;
+           console.log(teacher) // Same as 'course.instructor'
    -->
 
 --------------------------------------

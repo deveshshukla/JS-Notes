@@ -98,3 +98,25 @@ let approach3 = () => {
         console.log(`${k} : ${obj3[k]}`);
     })
 }
+
+
+//------ Handel object & arrays directly ------
+
+function handelObj(anyObj) {
+    console.log(`Username: ${anyObj.username}, Password: ${anyObj.passwd}`);
+}
+
+// Direct pass obj
+handelObj({
+    username: 'Dev',
+    passwd: 123456
+});
+
+
+function sumArray(anyArray) {
+    return anyArray.reduce((a,b) => a+b, 0);
+}
+
+// Direct pass arr
+console.log(sumArray([1,2,3,4,5])); // 15
+
