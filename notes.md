@@ -1434,8 +1434,12 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
    ## Lodash Documentation: [https://lodash.com/docs/4.17.21]
 
    <!-- 
+      To use In a browser:
+      <script src="lodash.js"></script>
+      
+      
       To use in JS outside of browser using NodeJS:
-
+      
       // Load the full build.
       var _ = require('lodash');
 
