@@ -1430,3 +1430,14 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
       const lodash = require('lodash');
       let deepCopy = lodash.cloneDeep(obj3);
    -->
+
+   ## Lodash Documentation: [https://lodash.com/docs/4.17.21]
+
+   <!-- 
+      To use in JS outside of browser using NodeJS:
+
+      // Load the full build.
+      var _ = require('lodash');
+
+      or ES6 module (modern way) : import _ from 'lodash';
+    -->
