@@ -99,24 +99,76 @@ let approach3 = () => {
     })
 }
 
+// Iterate Multiple Nested Object
+
+let nestedObj = () => {
+    console.log();
+    console.log('Iterate Nested Object');
+
+    const companyStructure = {
+        companyName: "TechCorp",
+        department: { 
+            deptName: "Engineering",
+            team: { 
+                teamName: "Frontend",
+                leadDev: { 
+                    name: "Dev",
+                    id: 101
+                }
+            }
+        }
+    };
+
+    // 1. Define a recursive function
+    function iterateNested(currentObj) {
+        
+        // Loop through all keys in the current object
+        for (let key in currentObj) {
+            
+            const value = currentObj[key];
+
+            // 2. Check if the value is an object (and not null)
+            if (typeof value === 'object' && value !== null) {
+                console.log(`Key: [${key}] is an object. Going deeper...`);
+                
+                // 3. RECURSION: Call the function again for this nested object
+                iterateNested(value); 
+                
+            } else {
+                // It's a normal value (string, number, etc.), just print it
+                console.log(`${key} : ${value}`);
+            }
+        }
+    }
+
+    // Run the function
+    iterateNested(companyStructure);
+}
+
+nestedObj();
+
 
 //------ Handel object & arrays directly ------
 
-function handelObj(anyObj) {
-    console.log(`Username: ${anyObj.username}, Password: ${anyObj.passwd}`);
+function check () {
+
+    function handelObj(anyObj) {
+        console.log(`Username: ${anyObj.username}, Password: ${anyObj.passwd}`);
+    }
+
+    // Direct pass obj
+    handelObj({
+        username: 'Dev',
+        passwd: 123456
+    });
+
+
+    function sumArray(anyArray) {
+        return anyArray.reduce((a,b) => a+b, 0);
+    }
+
+    // Direct pass arr
+    console.log(sumArray([1,2,3,4,5])); // 15
+
 }
-
-// Direct pass obj
-handelObj({
-    username: 'Dev',
-    passwd: 123456
-});
-
-
-function sumArray(anyArray) {
-    return anyArray.reduce((a,b) => a+b, 0);
-}
-
-// Direct pass arr
-console.log(sumArray([1,2,3,4,5])); // 15
 

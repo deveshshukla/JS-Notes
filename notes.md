@@ -2,11 +2,14 @@
 
 # JS Definition: 
 
-JavaScript is a versatile, dynamically typed programming language that brings life to web pages by making them interactive. It is used for building interactive web applications, supports both client-side and server-side development, and integrates seamlessly with HTML, CSS, and a rich standard library.
+- JavaScript is a versatile, dynamically typed programming language that is used for building interactive web applications, supports both client-side and server-side development.
 
-JavaScript is a single-threaded language that executes one task at a time.
-It is an interpreted language which means it executes the code line by line.
-The data type of the variable is decided at run-time in JavaScript, which is why it is called dynamically typed.
+- JavaScript is a single-threaded language that executes one task at a time.
+
+- It is an interpreted language which means it executes the code line by line.
+
+- The data type of the variable is decided at run-time in JavaScript, which is why it is called dynamically typed.
+
 
 # Key Features of JavaScript
 
@@ -15,6 +18,7 @@ The data type of the variable is decided at run-time in JavaScript, which is why
 3. Event-Driven: Responds to user actions (clicks, keystrokes) in real-time.
 4. Asynchronous: Handle tasks like fetching data from servers without freezing the UI.
 5. Rich Ecosystem: Numerous libraries and frameworks built on JS, such as React, Angular, Vue, etc.
+
 
 # Client Side and Server Side working of JS
 
@@ -27,6 +31,7 @@ The data type of the variable is decided at run-time in JavaScript, which is why
   a. Involves interacting with databases, manipulating files, and generating responses.
   b. Node.js and frameworks like Express.js are widely used for server-side JavaScript.
 
+
 # Programming Paradigms in JavaScript
 JavaScript supports both imperative and declarative programming styles:
 
@@ -34,29 +39,25 @@ JavaScript supports both imperative and declarative programming styles:
 
 2. Declarative Programming: Focuses on what should be done rather than how it’s done. It emphasizes describing the desired result, such as with arrow functions, without detailing the steps to achieve it.
 
+
 # JavaScript Code Execution
-JavaScript was initially designed to run within a web browser that has a JavaScript engine.
+
+- The JavaScript Engine is a program that reads and executes JavaScript code.
+
+- JavaScript was initially designed to run within a web browser that has a JavaScript engine.
 
 Example:
 Google Chrome: V8 Engine
-Safari: JavaScriptCore Engine
 Mozilla: SpiderMonkey Engine
-Microsoft-Egde: Chakra Engine
 
-# JavaScript Code Execution key stages
+--> Also this Engine's handle garbage collection to manage memory and utilizes an event loop for asynchronous operations, together to complete the execution lifecycle.
 
-1. Parsing: The engine first reads and interprets the raw JavaScript code.
-2. Compilation: It then converts the machine code into machine-readable instructions.
-3. Execution: Finally, the compiled code is run to achieve desired Output. 
-  
-  --> Also Engine handles garbage collection to manage memory and utilizes an event loop for asynchronous operations, together to complete the execution lifecycle.
-
-Note: The JavaScript Engine is a program that reads and executes JavaScript code.
 
 # How website works
 1. Developer place optimized HTML, CSS, and JavaScript files to a remote web server (which is a Hosting we buy). 
-2. When a user visits your site using 'Domain Name' which is connected to the 'Hosting/ Server', their browser requests these files from the server. 
-3. The server delivers them, and upon receiving the JavaScript files, the user's --> browser-based JavaScript Engine executes the code, providing a seamless and interactive user experience.
+2. When a user visits a site using 'Domain Name' which is connected to the 'Hosting/ Server', their browser requests these files from the server. 
+3. The server delivers the files, and upon receiving user's --> browser-based JavaScript Engine executes the code line by line providing a seamless & interactive user experience.
+
 
 # Execution Context?
 Everything in JavaScript is wrapped inside an execution context, (treated like a container) that holds all the information about the environment within which the current JavaScript code is being executed.
@@ -65,7 +66,7 @@ Everything in JavaScript is wrapped inside an execution context, (treated like a
 
   1. Memory Allocation Phase: In this phase, all the functions and variables of the JS code get stored as a key-value pair inside the memory component of the execution context. 
   --> In case of a function: JavaScript copy whole function into the memory block, but in the case of
-  --> variables: it assigned undefined as a placeholder.
+  --> variables: it assigned 'undefined' as a placeholder.
 
   --> In this phase, memory is allocated for all variables. Since we are using 'let', the variables are 'hoisted' but kept in the 'Temporal Dead Zone' (TDZ) until they are initialized.
   
@@ -73,10 +74,13 @@ Everything in JavaScript is wrapped inside an execution context, (treated like a
 
   --> JavaScript, being a single-threaded language, runs the code line by line.
 
+
 # Print methods in JS
 
-1. alert()--> pop-up
-2. Prompt Input 'prompt()'--> Used to display a dialog box asking the user to input.
+1. alert()--> Appear pop-up box.
+
+2. Prompt Input 'prompt()'--> Used to display a dialog box asking for the user input.
+
 3. document.write()--> This method is used when you want to directly write some content to the HTML document using JS. This method is useful when you want to dynamically update the webpage's. It overwrites the entire existing content of the document.
 
 Example: `<script>
