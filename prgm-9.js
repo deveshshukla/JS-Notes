@@ -112,7 +112,7 @@ let nestedObj = () => {
             team: { 
                 teamName: "Frontend",
                 leadDev: { 
-                    name: "Dev",
+                    Developer_name: "Dev",
                     id: 101
                 }
             }
@@ -129,7 +129,6 @@ let nestedObj = () => {
 
             // 2. Check if the value is an object (and not null)
             if (typeof value === 'object' && value !== null) {
-                console.log(`Key: [${key}] is an object. Going deeper...`);
                 
                 // 3. RECURSION: Call the function again for this nested object
                 iterateNested(value); 
@@ -141,7 +140,6 @@ let nestedObj = () => {
         }
     }
 
-    // Run the function
     iterateNested(companyStructure);
 }
 

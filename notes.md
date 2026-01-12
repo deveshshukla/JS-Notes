@@ -1449,3 +1449,282 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
       or ES6 module (modern way) : import _ from 'lodash';
     -->
+
+
+-----------------------------------------------------------
+
+# Scope, Closures, Hoisting & TDZ in JS
+
+## SCOPE in JavaScript
+
+* Scope defines the area or context where a variable is 'accessible'.
+
+* Three Types of Scopes:
+
+  1. Global Scope:
+    - Variables declared outside any function or block are in 'Global Scope'.
+    - Accessible everywhere in the code.
+    - Can be accessed inside functions and blocks.
+
+    <!-- 
+      let globalVar = 'I am global';
+
+      function myFunc() {
+          console.log(globalVar); // Accessible here
+      }
+
+      myFunc(); // Output: I am global
+     -->
+
+  2. Function Scope (Local Scope):
+    - Variables declared inside a function using 'var, let, const' are function-scoped.
+    - Only accessible within that function.
+    - Cannot be accessed outside the function.
+
+    <!-- 
+      function myFunc() {
+          var localVar = 'I am local';
+          console.log(localVar); // Accessible
+      }
+
+      console.log(localVar); // ReferenceError: localVar is not defined
+     -->
+
+  3. Block Scope (ES6):
+    - Variables declared with 'let' and 'const' inside a block { } are block-scoped.
+    - Only accessible within that block.
+    - Cannot be accessed outside the block.
+
+    <!-- 
+      if (true) {
+          let blockVar = 'I am block-scoped';
+          console.log(blockVar); // Accessible
+      }
+
+      console.log(blockVar); // ReferenceError
+     -->
+
+* Scope Chain:
+  - When JavaScript looks for a variable, it starts from the innermost scope and moves outward (to parent scopes).
+  - This process is called the "Scope Chain".
+  - If the variable is not found in the current scope, it searches the parent scope.
+  - If not found anywhere, it throws a ReferenceError.
+
+---
+
+## CLOSURES in JavaScript
+
+* Definition: A closure is a function that 'remembers' the variables from its parent scope even after the parent function has finished executing.
+
+* In other words: A closure is created when a nested function has access to the outer function's variables and parameters.
+
+* Core Concept: Functions in JavaScript form closures around the data they need to work with. This data is not garbage collected as long as the inner function is alive.
+
+* Every Function has a Closure:
+  - When a function is created, it automatically has access to its own scope and parent scopes.
+  - A closure 'captures' variables from its surrounding scope.
+
+  <!-- 
+    function outer() {
+        let count = 0;  // Captured by closure
+
+        function inner() {
+            count++;
+            console.log(count);
+        }
+
+        return inner;
+    }
+
+    const counter = outer();
+    counter(); // 1
+    counter(); // 2
+    counter(); // 3
+
+    Note: 'count' variable is 'NOT' destroyed even after outer() execution is complete.
+    The inner function remembers the 'count' variable.
+   -->
+
+* Practical Use Cases:
+
+  1. Data Encapsulation (Private Variables):
+    - Use closures to create private variables that cannot be accessed directly from outside.
+
+    <!-- 
+      function createBankAccount(initialBalance) {
+          let balance = initialBalance; // Private variable
+
+          return {
+              deposit: function(amount) {
+                  balance += amount;
+                  return balance;
+              },
+              withdraw: function(amount) {
+                  balance -= amount;
+                  return balance;
+              },
+              getBalance: function() {
+                  return balance;
+              }
+          };
+      }
+
+      const account = createBankAccount(1000);
+      console.log(account.getBalance()); // 1000
+      account.deposit(500);
+      console.log(account.getBalance()); // 1500
+      
+      console.log(account.balance); // undefined (private, cannot access directly)
+     -->
+
+  2. Function Factories (Creating Specialized Functions):
+    - Use closures to create functions that have pre-configured behavior.
+
+    <!-- 
+      function makeMultiplier(multiplier) {
+          return function(number) {
+              return number * multiplier;
+          };
+      }
+
+      const double = makeMultiplier(2);
+      const triple = makeMultiplier(3);
+
+      console.log(double(5)); // 10
+      console.log(triple(5)); // 15
+     -->
+
+  3. Callback Functions with Context:
+    - Closures help maintain context in asynchronous operations.
+
+    <!-- 
+      function setupButton(buttonId, message) {
+          let button = document.getElementById(buttonId);
+
+          button.addEventListener('click', function() {
+              console.log(message); // Closure captures 'message'
+          });
+      }
+
+      setupButton('btn1', 'Button 1 Clicked!');
+     -->
+
+* Interview Key Point:
+  - Q: "What is a closure?"
+  - A: "A closure is a function that has access to the variables in its outer (enclosing) scope, even after that outer function has returned."
+
+---
+
+## HOISTING in JavaScript
+
+* Definition: Hoisting is JavaScript's behavior of 'moving declarations to the top' of their scope before code execution.
+
+* Important: Only 'declarations' are hoisted, NOT 'assignments/initializations'.
+
+* Hoisting applies to both Variables and Functions.
+
+* Types of Hoisting:
+
+  1. Variable Hoisting with 'var':
+    - 'var' declarations are hoisted to the top of their 'function scope' (or global scope).
+    - They are initialized with 'undefined' by default.
+    - This is why you can access a 'var' variable before it's declared, but it will be 'undefined'.
+
+    <!-- 
+      console.log(x); // undefined (NOT ReferenceError)
+      var x = 5;
+      console.log(x); // 5
+
+      Behind the scenes, JS interprets it as:
+      var x; // Declaration hoisted
+      console.log(x); // undefined
+      x = 5; // Assignment stays here
+      console.log(x); // 5
+     -->
+
+  2. Variable Hoisting with 'let' and 'const':
+    - Declarations are hoisted, but NOT initialized.
+    - They are placed in 'Temporal Dead Zone (TDZ)' from the start of the scope until the declaration is reached in the code.
+    - Accessing them in the TDZ throws a ReferenceError.
+
+    <!-- 
+      console.log(y); // ReferenceError: Cannot access 'y' before initialization
+      let y = 10;
+
+      Behind the scenes:
+      // TDZ Zone starts here
+      console.log(y); // ReferenceError
+      let y = 10; // TDZ Zone ends here
+      console.log(y); // 10
+     -->
+
+  3. Function Hoisting:
+    - Function 'declarations' are fully hoisted.
+    - You can call a function 'before' it's declared in the code.
+    - Function 'expressions' (assignments) are NOT hoisted.
+
+    <!-- 
+      Hoisted - Works fine:
+      greet(); // Output: Hello!
+
+      function greet() {
+          console.log('Hello!');
+      }
+
+
+      NOT Hoisted - Error:
+      sayBye(); // TypeError: sayBye is not a function
+
+      var sayBye = function() {
+          console.log('Bye!');
+      };
+
+      Note: sayBye is hoisted as 'undefined' (because of 'var'), not the function itself.
+     -->
+
+* Temporal Dead Zone (TDZ):
+  - The TDZ is the region from the start of a block until the point where a variable (declared with 'let' or 'const') is declared.
+  - Accessing a variable in the TDZ throws a ReferenceError.
+  - 'var' does NOT have a TDZ.
+
+  <!-- 
+    function test() {
+        console.log(a); // ReferenceError (TDZ for 'a')
+        let a = 5;
+    }
+
+    test();
+   -->
+
+* Hoisting and Scope Interaction:
+  - Variables are hoisted only within their scope.
+  - Global variables hoist to the global scope.
+  - Function variables hoist to their function scope.
+  - Block variables (let/const) hoist to their block scope.
+
+  <!-- 
+    var globalVar = 'global';
+
+    function myFunc() {
+        console.log(localVar); // undefined (hoisted within function scope)
+        var localVar = 'local';
+    }
+
+    myFunc();
+   -->
+
+---
+
+* Key Interview Questions:
+
+  Q1: Difference between 'var' and 'let'?
+  A1: 'var' is function-scoped, 'let' is block-scoped. 'var' is hoisted and initialized as undefined, 'let' is hoisted but in TDZ.
+
+  Q2: What is a closure and when is it useful?
+  A2: A closure is a function that remembers variables from its parent scope. Useful for data encapsulation, callbacks, and creating private variables.
+
+  Q3: Why does the code not throw an error for undefined 'var' but throws error for 'let' in TDZ?
+  A3: 'var' is initialized as 'undefined' during hoisting, while 'let' is hoisted but not initialized (TDZ).
+
+  Q4: Can you access a function before it's declared?
+  A4: Yes, if it's a function declaration. No, if it's a function expression or arrow function.
