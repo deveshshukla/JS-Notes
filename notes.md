@@ -665,6 +665,28 @@ console.log(allPos)
 
 --------------------------------------------
 
+## 1. Function Declarations
+A Function Declaration is the traditional way to define a function. It uses the function keyword followed by the name of the function.
+
+Key Characteristics:
+
+  - Hoisted: This is the most distinct feature. The JavaScript engine moves these to the top of the scope before code execution. This means you can call the function before you define it in your code.
+
+  - Must be named: You cannot create an anonymous function declaration.
+
+## 2. Function Expressions ("Initialized Functions")
+A Function Expression is when a function is created and assigned (initialized) to a variable. Since it is treated like a variable assignment, it follows the rules of variables (var, let, or const).
+
+Key Characteristics:
+
+  - Not Hoisted: You cannot call this function before you define it. If you try, you will get an error (usually ReferenceError or undefined depending on the variable type).
+
+  - Can be Anonymous: The function itself doesn't need a name (e.g., function() {...}), because the variable name is used to call it.
+
+  - Arrow Functions: Modern JavaScript often uses "Arrow Functions" here.
+
+--------------------------------------------
+
 ## Some Important function articles for interview point of view:
  
 1. Currying function : https://www.geeksforgeeks.org/javascript/what-is-currying-function-in-javascript/

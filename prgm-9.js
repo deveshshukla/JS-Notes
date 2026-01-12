@@ -16,7 +16,7 @@ obj[mySbl] = 'SecKey';
 
 //------ Iterate through object properties ------
 for (let key in obj) {
-    console.log(`${key} : ${obj[key]}`);
+    // console.log(`${key} : ${obj[key]}`);
 }
 
 
@@ -26,29 +26,29 @@ console.log(obj);
 
 
 //------ Check obj has own property, not Inherited ------
-console.log("age" in obj); // false
-console.log(obj.hasOwnProperty("full name")); // true
+// console.log("age" in obj); // false
+// console.log(obj.hasOwnProperty("full name")); // true
 
 
 //------ Print Symbols ------
-console.log(Object.getOwnPropertySymbols(obj)); // only symbols 
-console.log(Reflect.ownKeys(obj)); // All properties incl. symbols
+// console.log(Object.getOwnPropertySymbols(obj)); // only symbols 
+// console.log(Reflect.ownKeys(obj)); // All properties incl. symbols
 
 
 //------ Merger Objects ------
 let obj1 = {city: "Mumbai"};
 
 let obj2 = Object.assign(obj, obj1); // One way
-console.log(obj2);
+// console.log(obj2);
 
 obj2.state = 'Maharashtra';
 
 let obj3 = {...obj, ...obj1, ...obj2}; // Another way
-console.log(obj3);
+// console.log(obj3);
 
 
 //------ Find length of Obj ------
-console.log(`${Object.keys(obj3)} : ${Object.keys(obj3).length}`);
+// console.log(`${Object.keys(obj3)} : ${Object.keys(obj3).length}`);
 
 
 //------ Obj enumerable or non-enumerable ------
@@ -58,7 +58,7 @@ Object.defineProperty(obj, "id", {
     enumerable: false // This makes 'id' non-enumerable
 });
 
-console.log(Object.keys(obj)); // id is hidden
+// console.log(Object.keys(obj)); // id is hidden
 
 
 //------ Iterate over a JavaScript object ------
@@ -99,7 +99,8 @@ let approach3 = () => {
     })
 }
 
-// Iterate Multiple Nested Object
+
+//---- Iterate Multiple Nested Object ----
 
 let nestedObj = () => {
     console.log();
@@ -142,8 +143,6 @@ let nestedObj = () => {
 
     iterateNested(companyStructure);
 }
-
-nestedObj();
 
 
 //------ Handel object & arrays directly ------
