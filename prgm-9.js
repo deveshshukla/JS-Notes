@@ -64,8 +64,7 @@ Object.defineProperty(obj, "id", {
 //------ Iterate over a JavaScript object ------
 
 let approach1 = () => {
-    console.log();
-    console.log('[Approach 1]: Using for...in Loop');
+    console.log('\n[Approach 1]: Using for...in Loop');
 
     for (let objKey in obj3) {
         console.log(`${objKey} : ${obj3[objKey]}`);
@@ -73,8 +72,7 @@ let approach1 = () => {
 }
 
 let approach2 = () => {
-    console.log();
-    console.log('[Approach 2]: Using Object.entries() and map()');
+    console.log('\n[Approach 2]: Using Object.entries() and map()');
     // Object.entries() returns an array of an object’s key-value pairs. 
     // map() to access each pair, where index 0 is the key and index 1 is the value.
 
@@ -87,8 +85,7 @@ let approach2 = () => {
 }
 
 let approach3 = () => {
-    console.log();
-    console.log('[Approach 3]: Using forEach() and object.keys() Method');
+    console.log('\n[Approach 3]: Using forEach() and object.keys() Method');
     // object.keys() Method returns an array of keys of the object. 
     // forEach() method is an array method that allows you to iterate over each element in the array.
 
@@ -148,6 +145,7 @@ let nestedObj = () => {
 //------ Handel object & arrays directly ------
 
 function check () {
+    console.log('\n---- Handel object & arrays directly ----');
 
     function handelObj(anyObj) {
         console.log(`Username: ${anyObj.username}, Password: ${anyObj.passwd}`);
@@ -169,3 +167,80 @@ function check () {
 
 }
 
+
+//------ JS Data Structures ------
+
+let jsDS = () => {
+    console.log('\n---- Obj vs Map Data Structures ----');
+
+    // 1st: Map : Unique key's & remember the order of insertion, key type will be any.
+    let map = new Map();
+    map.set('Name', 'Dev');
+    map.set('EmpID', 70);
+    map.set('Dept', 'SWE');
+
+    // Key 'Name' value updated, don't allow duplicate key's
+    map.set('Name', 'David'); 
+
+    console.log('\n-- for...of loop : Gives "Value" only');
+    for (let [key, val] of map) { 
+        console.log(`${key} --> ${val}`);
+    }
+
+
+    // 2nd: Object : Key type only string & symbol not other type.
+    let obj = {
+        'Name' : 'Smith',
+        'EmpID' : 9,
+        'Dept' : 'Sales'
+    }
+
+    console.log('\n-- for...in loop : Gives "Key" only --');
+    for (let key in obj) { 
+        console.log(`${key} --> ${obj[key]}`);
+    }
+
+
+    
+    console.log('\n---- Array Data Structures ----');
+
+    let arr = ['Ind', 'JAPAN', 'Russia'];
+
+    console.log('\n forEach loop');
+    arr.forEach ((val, idx) => console.log(`${idx} : ${val}`));
+
+    console.log('\n for...in loop : gives only key');
+    for (let idx in arr) {
+        console.log(`${idx} : ${arr[idx]}`);
+    }
+
+    console.log('\n for...of loop : gives only value');
+    for (let val of arr) {
+        console.log(`${arr.indexOf(val)} : ${val}`);
+    }
+}
+
+let objInArray = () => {
+    console.log('\n---- Iterate Obj in Array (JSON) format ----');
+
+    let JsonResponse = [
+        {
+            'state' : 'Mumbai',
+            'temp' : '34 Deg'
+        },
+        {
+            'state' : 'J&K',
+            'temp' : '12 Deg'
+        },
+        {
+            'state' : 'Chennai',
+            'temp' : '27 Deg'
+        }
+    ]
+
+    JsonResponse.forEach( (item, idx) => {
+        console.log(`${idx} : ${item.state} temp. is ${item.temp} celsius`);
+    })
+}
+
+objInArray();
