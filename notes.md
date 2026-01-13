@@ -11,7 +11,7 @@
 - The data type of the variable is decided at run-time in JavaScript, which is why it is called dynamically typed.
 
 
-# Key Features of JavaScript
+## Key Features of JavaScript
 
 1. Client-Side Scripting: JavaScript runs on the user's browser, so has a faster response time.
 2. Versatile: Can be used for, simple calculations to complex server-side applications.
@@ -20,7 +20,7 @@
 5. Rich Ecosystem: Numerous libraries and frameworks built on JS, such as React, Angular, Vue, etc.
 
 
-# Client Side and Server Side working of JS
+## Client Side and Server Side working of JS
 
 1. Client-Side:
   a. Involves controlling the browser and its DOM (Document Object Model).
@@ -32,7 +32,7 @@
   b. Node.js and frameworks like Express.js are widely used for server-side JavaScript.
 
 
-# Programming Paradigms in JavaScript
+## Programming Paradigms in JavaScript
 JavaScript supports both imperative and declarative programming styles:
 
 1. Imperative Programming: Focuses on how to perform tasks by controlling the flow of computation. This includes approaches like procedural and object-oriented programming, often using constructs like async/await to handle asynchronous actions.
@@ -40,7 +40,7 @@ JavaScript supports both imperative and declarative programming styles:
 2. Declarative Programming: Focuses on what should be done rather than how it’s done. It emphasizes describing the desired result, such as with arrow functions, without detailing the steps to achieve it.
 
 
-# JavaScript Code Execution
+## JavaScript Code Execution
 
 - The JavaScript Engine is a program that reads and executes JavaScript code.
 
@@ -53,29 +53,297 @@ Mozilla: SpiderMonkey Engine
 --> Also this Engine's handle garbage collection to manage memory and utilizes an event loop for asynchronous operations, together to complete the execution lifecycle.
 
 
-# How website works
+## How website works
 1. Developer place optimized HTML, CSS, and JavaScript files to a remote web server (which is a Hosting we buy). 
 2. When a user visits a site using 'Domain Name' which is connected to the 'Hosting/ Server', their browser requests these files from the server. 
 3. The server delivers the files, and upon receiving user's --> browser-based JavaScript Engine executes the code line by line providing a seamless & interactive user experience.
 
 
-# Execution Context?
-Everything in JavaScript is wrapped inside an execution context, (treated like a container) that holds all the information about the environment within which the current JavaScript code is being executed.
+## Execution Context (INTERVIEW FOCUS)
 
---> Phases of the JavaScript Execution Context
+* Definition: An execution context is an abstract concept that represents the environment in which JavaScript code is executed. It contains all the information needed to run the code like variables, functions, scope chain, and the 'this' keyword.
 
-  1. Memory Allocation Phase: In this phase, all the functions and variables of the JS code get stored as a key-value pair inside the memory component of the execution context. 
-  --> In case of a function: JavaScript copy whole function into the memory block, but in the case of
-  --> variables: it assigned 'undefined' as a placeholder.
+* Think of it as a 'Container' that holds:
+  - All variables and their values
+  - Function declarations
+  - The scope chain (access to parent scopes)
+  - The 'this' keyword value
 
-  --> In this phase, memory is allocated for all variables. Since we are using 'let', the variables are 'hoisted' but kept in the 'Temporal Dead Zone' (TDZ) until they are initialized.
-  
-  2. Code Execution Phase: In this phase, the JS code is executed one line at a time inside the Code Component (also known as the Thread of Execution) of the Execution Context.
+---
 
-  --> JavaScript, being a single-threaded language, runs the code line by line.
+## Types of Execution Context
+
+There are 3 main types of execution contexts in JavaScript:
+
+  1. Global Execution Context (GEC):
+    - Created when the JavaScript engine starts running your code.
+    - There is only ONE global execution context per program.
+    - In browsers: global object is 'window'
+    - In Node.js: global object is 'global'
+
+    <!-- 
+      console.log(this); // In browser: window, In Node: global
+     -->
+
+  2. Function Execution Context (FEC):
+    - Created every time a function is called.
+    - Each function call creates its own execution context.
+    - Destroyed after the function finishes execution.
+
+    <!-- 
+      function greet() {
+          let name = 'Dev'; // New context created
+          console.log(name);
+      }
+
+      greet(); // FEC created -> FEC destroyed
+     -->
+
+  3. Eval Execution Context:
+    - Created when code is evaluated using eval() function.
+    - NOT recommended in practice (security risks).
+
+---
+
+## Phases of JavaScript Execution Context
+
+Every execution context goes through TWO phases:
+
+### Phase 1: Memory Allocation / Creation Phase
+
+In this phase, JavaScript engine scans the entire code and pre-allocates memory for all variables and functions BEFORE any code is executed.
+
+What happens:
+
+  - All 'function declarations' are copied entirely into memory.
+  - All 'variable declarations' are hoisted and assigned placeholder values:
+    * 'var' --> assigned 'undefined'
+    * 'let' and 'const' --> placed in 'Temporal Dead Zone (TDZ)', not initialized
+  - The 'this' keyword is defined for the context.
+
+Example:
+
+  <!-- 
+    console.log(name); // undefined (NOT ReferenceError)
+    console.log(greet()); // Output: "Hello" (works fine)
+    var name = 'Dev';
+
+    function greet() {
+        return 'Hello';
+    }
+
+    Behind the scenes (Memory Allocation Phase):
+    var name = undefined; // hoisted
+    function greet() { ... } // fully hoisted
+   -->
+
+Key Point: Variables are hoisted (moved to top mentally), but assignments stay in place.
+
+### Phase 2: Code Execution Phase
+
+In this phase, the JavaScript engine executes the code line by line (one line at a time, sequentially).
+
+What happens:
+
+  - Variables get their actual assigned values.
+  - Function calls are executed (creates new FEC for each call).
+  - The code runs top to bottom, one statement at a time.
+  - 'undefined' variables now get their real values.
+
+Example (continuing above):
+
+  <!-- 
+    console.log(name); // undefined (from Phase 1)
+    console.log(greet()); // "Hello"
+    var name = 'Dev'; // Assignment happens NOW in Phase 2
+    console.log(name); // Dev (now has actual value)
+   -->
+
+---
+
+## Execution Context Structure (3 Components)
+
+Each execution context has 3 main components:
+
+  1. Variable Environment (Variable Object):
+    - Stores all variables, function declarations, and parameters.
+    - In function context: includes 'arguments' object with all passed arguments.
+    - Stores all local variables declared in this context.
+
+  2. Scope Chain:
+    - A reference to the outer (parent) environment's variables.
+    - Allows access to variables from parent scopes.
+    - Order: Current Scope --> Parent Scope --> Global Scope
+
+  3. This Binding:
+    - The 'this' keyword is bound when context is created.
+    - Value depends on HOW the function is called (NOT where it's defined).
+
+---
+
+## Call Stack (Execution Stack) - IMPORTANT
+
+* Definition: The Call Stack is a data structure that keeps track of all execution contexts during code execution.
+
+* How it works:
+  - Global EC is pushed to stack when program starts.
+  - Each function call pushes a new FEC onto the stack.
+  - When a function finishes, its FEC is popped from the stack.
+  - Program ends when stack is empty.
+
+* Visual Example:
+
+  <!-- 
+    function outer() {
+        function inner() {
+            console.log('Inner');
+        }
+        inner();
+    }
+
+    outer();
+
+    Call Stack Evolution:
+
+    Step 1: Program starts
+    [ Global EC ]
+
+    Step 2: outer() called
+    [ outer FEC ]
+    [ Global EC ]
+
+    Step 3: inner() called (inside outer)
+    [ inner FEC ]
+    [ outer FEC ]
+    [ Global EC ]
+
+    Step 4: inner() finishes
+    [ outer FEC ]
+    [ Global EC ]
+
+    Step 5: outer() finishes
+    [ Global EC ]
+
+    Step 6: Program ends
+    [ ] (empty stack)
+   -->
+
+* Key Point: Only ONE execution context executes at a time (LIFO - Last In First Out).
+
+---
+
+## The 'this' Keyword in Execution Context
+
+* Definition: 'this' refers to the object on which a method is called.
+
+* CRITICAL: Value of 'this' is determined by HOW the function is called, NOT where it's defined.
+
+* Rules for 'this' binding:
+
+  1. In Global Context:
+    - 'this' refers to the global object (window in browser, global in Node).
+
+  2. In Regular Function Call:
+    - 'this' refers to global object (non-strict mode).
+    - 'this' is undefined (strict mode).
+
+    <!-- 
+      function myFunc() {
+          console.log(this);
+      }
+
+      myFunc(); // window (non-strict) or undefined (strict mode)
+     -->
+
+  3. In Method Call (Object Method):
+    - 'this' refers to the object that called the method.
+
+    <!-- 
+      const user = {
+          name: 'Dev',
+          greet: function() {
+              console.log(this.name); // this = user
+          }
+      };
+
+      user.greet(); // Output: Dev
+     -->
+
+  4. In Constructor Function (with 'new' keyword):
+    - 'this' refers to the newly created object.
+
+    <!-- 
+      function Car(brand) {
+          this.brand = brand; // this = new object
+      }
+
+      const myCar = new Car('Toyota');
+      console.log(myCar.brand); // Toyota
+     -->
+
+  5. With Arrow Functions:
+    - Arrow functions do NOT have their own 'this'.
+    - They inherit 'this' from parent scope (lexical 'this').
+
+    <!-- 
+      const user = {
+          name: 'Dev',
+          greet: () => {
+              console.log(this); // 'this' from parent scope
+          }
+      };
+
+      user.greet(); // window (NOT user)
+     -->
+
+  6. Explicit Binding (call, apply, bind):
+    - You can explicitly set 'this' using call(), apply(), or bind().
+
+    <!-- 
+      function greet() {
+          console.log(this.name);
+      }
+
+      const user = { name: 'Dev' };
+
+      greet.call(user); // Output: Dev
+      greet.apply(user); // Output: Dev
+      const boundGreet = greet.bind(user);
+      boundGreet(); // Output: Dev
+     -->
+
+---
+
+## Interview Q&A on Execution Context
+
+Q1: What is an execution context?
+A1: An execution context is an abstract concept representing the environment where code runs. It contains variables, functions, scope chain, and the 'this' keyword.
+
+Q2: How many execution contexts exist at the same time?
+A2: Multiple contexts can exist (Global + multiple Function contexts), but only ONE executes at a time (managed by Call Stack using LIFO).
+
+Q3: What happens in the two phases of execution context?
+A3: 
+  - Phase 1 (Memory Allocation): All declarations are hoisted, 'var' becomes 'undefined', 'let'/'const' go to TDZ.
+  - Phase 2 (Code Execution): Code runs line-by-line, variables get their real values.
+
+Q4: Why is 'var' 'undefined' but 'let' throws ReferenceError when accessed before initialization?
+A4: 'var' is initialized to 'undefined' in Phase 1, but 'let'/'const' are hoisted to TDZ (not initialized), throwing ReferenceError if accessed before declaration.
+
+Q5: Why does 'this' behave differently in arrow functions?
+A5: Arrow functions don't have their own 'this'. They inherit 'this' from the parent scope (lexical binding), unlike regular functions with dynamic 'this' binding.
+
+Q6: What happens to execution context after a function finishes?
+A6: The function's FEC is popped from the Call Stack and destroyed. Memory is freed by garbage collection.
+
+Q7: Can you change 'this' in an arrow function using call(), apply(), or bind()?
+A7: No. Arrow functions have lexical 'this' binding which cannot be changed. Explicit binding methods won't work on arrow functions.
 
 
-# Print methods in JS
+-----------------------------------------------------------
+
+
+## Print methods in JS
 
 1. alert()--> Appear pop-up box.
 
