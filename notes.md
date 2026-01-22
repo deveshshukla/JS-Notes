@@ -81,23 +81,23 @@ There are 3 main types of execution contexts in JavaScript:
     - In browsers: global object is 'window'
     - In Node.js: global object is 'global'
 
-    <!-- 
+    ```
       console.log(this); // In browser: window, In Node: global
-     -->
+    ```
 
   2. Function Execution Context (FEC):
     - Created every time a function is called.
     - Each function call creates its own execution context.
     - Destroyed after the function finishes execution.
 
-    <!-- 
+    ```
       function greet() {
           let name = 'Dev'; // New context created
           console.log(name);
       }
 
       greet(); // FEC created -> FEC destroyed
-     -->
+    ```
 
   3. Eval Execution Context:
     - Created when code is evaluated using eval() function.
@@ -123,7 +123,7 @@ What happens:
 
 Example:
 
-  <!-- 
+  ``` 
     console.log(name); // undefined (NOT ReferenceError)
     console.log(greet()); // Output: "Hello" (works fine)
     var name = 'Dev';
@@ -135,7 +135,7 @@ Example:
     Behind the scenes (Memory Allocation Phase):
     var name = undefined; // hoisted
     function greet() { ... } // fully hoisted
-   -->
+  ```
 
 Key Point: Variables are hoisted (moved to top mentally), but assignments stay in place.
 
@@ -152,12 +152,12 @@ What happens:
 
 Example (continuing above):
 
-  <!-- 
+  ``` 
     console.log(name); // undefined (from Phase 1)
     console.log(greet()); // "Hello"
     var name = 'Dev'; // Assignment happens NOW in Phase 2
     console.log(name); // Dev (now has actual value)
-   -->
+  ```
 
 ---
 
@@ -193,7 +193,7 @@ Each execution context has 3 main components:
 
 * Visual Example:
 
-  <!-- 
+  ``` 
     function outer() {
         function inner() {
             console.log('Inner');
@@ -226,7 +226,7 @@ Each execution context has 3 main components:
 
     Step 6: Program ends
     [ ] (empty stack)
-   -->
+  ```
 
 * Key Point: Only ONE execution context executes at a time (LIFO - Last In First Out).
 
@@ -247,18 +247,18 @@ Each execution context has 3 main components:
     - 'this' refers to global object (non-strict mode).
     - 'this' is undefined (strict mode).
 
-    <!-- 
+    ``` 
       function myFunc() {
           console.log(this);
       }
 
       myFunc(); // window (non-strict) or undefined (strict mode)
-     -->
+    ```
 
   3. In Method Call (Object Method):
     - 'this' refers to the object that called the method.
 
-    <!-- 
+    ``` 
       const user = {
           name: 'Dev',
           greet: function() {
@@ -267,25 +267,25 @@ Each execution context has 3 main components:
       };
 
       user.greet(); // Output: Dev
-     -->
+    ```
 
   4. In Constructor Function (with 'new' keyword):
     - 'this' refers to the newly created object.
 
-    <!-- 
+    ``` 
       function Car(brand) {
           this.brand = brand; // this = new object
       }
 
       const myCar = new Car('Toyota');
       console.log(myCar.brand); // Toyota
-     -->
+    ```
 
   5. With Arrow Functions:
     - Arrow functions do NOT have their own 'this'.
     - They inherit 'this' from parent scope (lexical 'this').
 
-    <!-- 
+    ``` 
       const user = {
           name: 'Dev',
           greet: () => {
@@ -294,12 +294,12 @@ Each execution context has 3 main components:
       };
 
       user.greet(); // window (NOT user)
-     -->
+    ```
 
   6. Explicit Binding (call, apply, bind):
     - You can explicitly set 'this' using call(), apply(), or bind().
 
-    <!-- 
+    ``` 
       function greet() {
           console.log(this.name);
       }
@@ -310,11 +310,11 @@ Each execution context has 3 main components:
       greet.apply(user); // Output: Dev
       const boundGreet = greet.bind(user);
       boundGreet(); // Output: Dev
-     -->
+    ```
 
 ---
 
-## Interview Q&A on Execution Context
+### Interview Q&A on Execution Context
 
 Q1: What is an execution context?
 A1: An execution context is an abstract concept representing the environment where code runs. It contains variables, functions, scope chain, and the 'this' keyword.
@@ -351,26 +351,27 @@ A7: No. Arrow functions have lexical 'this' binding which cannot be changed. Exp
 
 3. document.write()--> This method is used when you want to directly write some content to the HTML document using JS. This method is useful when you want to dynamically update the webpage's. It overwrites the entire existing content of the document.
 
-Example: `<script>
+Example: ```<script>
             let userName = prompt("Please enter your name:");
             document.write("Your name is: " + userName);
-          </script>`
+          </script>```
 
 4. document.querySelector()--> Used to select the HTML element using tag name, class name, ID, or a more complex selector. Returns only the first element that matches the specified selectors.
 Example: 
 for Class: document.querySelector('.className')
 for ID: document.querySelector('#idName')
-for Attribute: document.querySelector("div"), document.querySelector("input[name='login']")
+for Attribute: document.querySelector('div'), document.querySelector("input[name='login']")
 
 5. document.querySelectorAll()--> returns all elements that match the specified selectors.
-6. document.getElementById()--> Used to update the content of an HTML element with a specific ID.
-7. document.getElementByClass()--> Used to update the content of an HTML element with a specific Class.
+
+6. document.getElementById()--> Select HTML element with a specific ID.
+7. document.getElementByClass()--> Select HTML element with a specific Class.
 
 Imp:
 # Variable shadowing in JavaScript 
 --> Occurs when a variable declared within a specific scope (Inside a function or a let/const block scope) has the same name as a variable in an outer/global scope. The variable in the inner scope shadows the outer one, meaning that within the inner scope, the outer variable's value cannot be accessed until the inner scope terminates.
 
-# How Shadowing Works
+## How Shadowing Works
 The JavaScript engine prioritizes the variable declaration found in the most immediate, local scope. The inner variable effectively hides the outer variable from use within its own code block.
 
 --> Key Points:
@@ -380,23 +381,25 @@ The JavaScript engine prioritizes the variable declaration found in the most imm
   a. 'var' is function-scoped (or global-scoped) and does not create block-scope or shadowing. 
   b. 'let' and 'const' are block-scoped and leads to shadowing in modern JS.
 
-Example: 
-`let Y = 30;
+Example:
+```
+let Y = 30;
 if (true){
  let Y = 40;
  console.log(y);
 }
 
-console.log(y);`
+console.log(y);
 
 output: 40 30
+```
 
 Note: Same in Function Scope also.
 
 -----------------------------------------------------------
-# prgm-1:
+## prgm-1:
 
-# Declaring Variables in JavaScript
+## Declaring Variables in JavaScript
 a. Before ES6 (2015): Variables were declared only with 'var', which is 'function-scoped' and 'global-scoped', causing issues like hoisting and global pollution.
 
 b. ES6 Introduction: let and const were introduced to provide safer alternatives for declaring variables.
@@ -412,22 +415,22 @@ c. Scope: let and const are block-scoped (limited to { } block) or global-scoped
 Note: 'var' can be redeclared in the same scope, but 'let and const' cannot be.
 Note: We can change 'elements/values' of array or objects even if declared as const.
 
-# Rules for Naming Variables
+## Rules for Naming Variables
 
 1. Variable names can begin with a letter, underscore (_), or dollar sign ($).
 2. Variable names are case-sensitive (e.g., age and Age are different variables).
 3. Reserved keywords (like function, class, return, etc.) cannot be used as variable names.
 
 -----------------------------------------------------------
-# prgm-2: Data-types in JS
+## prgm-2: Data-types in JS
 
 * Primitive data-types: (e.g., number, bigint, string, boolean, null, undefined, symbol) are stored and passed by value. They're immutable values stored directly into memory, they are efficient in both memory usage and performance.
 
-* Non-primitive data-types: (objects, arrays, functions, date, regx) are stored and passed by reference (technically, the variable holds a reference to the object’s memory location). They are derived from primitive data types, also known as 'derived' or 'reference' data types.
+* Non-primitive data-types: (objects, arrays, functions, date, regex) are stored and passed by reference (technically, the variable holds a reference to the object’s memory location). They are derived from primitive data types, also known as 'derived' or 'reference' data types.
 
 In JavaScript, the main difference between primitive and non-primitive data types is that primitives are stored and passed by value, while non-primitives are stored and passed by reference.
 
-# Primitive:
+## Primitive:
 
 1. Number => data type in JavaScript includes both integers and floating-point numbers. Special values like Infinity, -Infinity, and NaN.
 Example: (n3 = Infinity or -Infinity)
@@ -442,46 +445,52 @@ Example: (n3 = Infinity or -Infinity)
 4. Symbol => introduced in ES6, are unique and immutable primitive values used as identifiers for object properties. They help create unique keys in objects, preventing conflicts with other properties. Even if two symbols have the same value, they are always unique.
   - It is type: 'symbol'
   Example: 
+  ```
   let s1 = Symbol("Geeks");
   let s2 = Symbol("Geeks");
   console.log(s1 == s2);
 
   Output: false
+  ```
 
 5. BigInt (Introduced in ES2020) => It's a built-in object in JS to represent the number 2^53. It's a largest number that JavaScript can represent. (2^53 = 9,007,199,254,740,992)
 Example: 
+```
 let a = BigInt("9007199254740992");
 let b = 9007199254740992n; // put 'n' @ end.
+```
 
-
-# Non-Primitive:
+## Non-Primitive:
 
 1. Object => JavaScript objects are 'key-value pairs' used to store data. In JS everything is an object.
 
 2. Arrays => It's a special kind of object used to store an ordered collection of values, which can be of 'any data type'.
-Example: let a2 = [1, "two", { name: "Object" }, [3, 4, 5]];
+Example: 
+```let a2 = [1, "two", { name: "Object" }, [3, 4, 5]];```
 
 3. Function => It's a block of reusable code, same as method in java.
 
 4. Date Object => It's used to work with dates and times.
 
 5. Regular Expression (RegExp) => It's an object used to define search patterns for matching text in strings.
-Example: // RegExp to match the word "hello"
-          let pattern = /hello/;
+Example: 
+```
+// RegExp to match the word "hello"
+let pattern = /hello/;
 
-          // Returns 'false' because "hello" is not present
-          let result1 = pattern.test("Hello, world!");
+// Returns 'false' because "hello" is not present
+let result1 = pattern.test("Hello, world!");
 
-          // Returns 'true' because "hello" is present
-          let result2 = pattern.test("hello, world!");
-
+// Returns 'true' because "hello" is present
+let result2 = pattern.test("hello, world!");
+```
 
 * Dynamically Typed : JavaScript Variables are not bound to data type they are bound with value of variable and is decided & checked at run time.
 
 * Everything is an Object (Sort of): In JavaScript, Functions are objects, arrays are objects, and even primitive values can behave like objects temporarily when you try to access properties on them.
 
 * NaN is not equal to itself: It is used to represent a computational error. NaN is type number.
-Example: console.log(NaN === NaN); // False
+Example: ```console.log(NaN === NaN); // False```
 
 * A Symbol is Never Equal to Another One : Symbol is a unique and immutable data type often used for creating private properties and methods. Symbols are never equal to any other Symbol.
 
@@ -489,7 +498,7 @@ Example: console.log(NaN === NaN); // False
 
 -----------------------------------------------------------
 
-# Operators in JS
+## Operators in JS
 
 * There are various operators supported by JavaScript: 
 1. Arithmetic Operator (+ - * / %)
@@ -501,21 +510,27 @@ Example: console.log(NaN === NaN); // False
 
 7. Comma Operator: evaluates operands from left to right and returns the value of the 'rightmost' operand.
 Example: 
+```
 let n1, n2;
 const res = (n1 = 1, n2 = 2, n1 + n2);
 console.log(res); // 3
+```
 
 8. Unary Operator: also known as 'Increment / Decrement' Operators (x++, ++x)
 
 9. Relational Operator: used to compare its operands and determine the relationship between them, return a Boolean value.
 Example:
+```
 const obj = { length: 10 };
 
   a. console.log("length" in obj); // true
+
   --> 'in' checks if a property exists in an object.
 
   b. console.log([] instanceof Array); // true
+
   --> The 'instanceof' operator in JS is used to check if an object is an instance of a specific class or constructor function, or if it inherits from that class's prototype chain.
+```
 
 10. BigInt Operator: It allow calculations with numbers beyond the safe integer range.
 
@@ -523,17 +538,19 @@ const obj = { length: 10 };
 
 12. Chaining Operator (?.): allows safe access to deeply nested properties without throwing errors if the property doesn’t exist.
 Example:
+```
 const obj = { name: "Chinmay", address: { city: "Delhi" } };
 console.log(obj.address?.city);
 console.log(obj.contact?.phone);
 
 --> '?.' safely accesses a property or method.
 --> Returns undefined if the property doesn’t exist.
+```
 
 
 -----------------------------------------------------------
 
-# Equality in JS
+## Equality in JS
 
 1. == (loose equality): Compares 'values' only.
 
@@ -549,29 +566,35 @@ null == undefined // true
 
 -----------------------------------------------------------
 
-# Every Data-type : typeof
+## Every Data-type : typeof
 
 * typeof(NaN) returns a number.
 
 * 'typeof' operator returns value in a string type.
-Example: function check(x) {
-              if (typeof (x) === "number") {
-                  console.log("x is a number")
-              }
-              if (typeof (x) === "string") {
-                  console.log("x is a string")
-              }
-          }
+Example: 
+```
+function check(x) {
+    if (typeof (x) === "number") {
+        console.log("x is a number")
+    }
+    if (typeof (x) === "string") {
+        console.log("x is a string")
+    }
+}
+```
 
 * Get data-type of various variable in object: 
-Example: let x = { k: 12, m: "geeky stuff" }
+Example: 
+```
+let x = { k: 12, m: "geeky stuff" }
 
 console.log(typeof (x))   // object
 console.log(typeof (x.k)) // number
 console.log(typeof (x.m)) // string
 console.log(typeof (x.s)) // undefined
+```
 
-* All the data-type has same typeof except some of the:
+* All the data-type has same typeof, except some of the:
 
 1. Null : 'object'
 
@@ -593,7 +616,7 @@ console.log(typeof (x.s)) // undefined
 
 -----------------------------------------------------------
 
-# Prgm-3: Memory type: 
+## Prgm-3: Memory type: 
 
 1. Stack Memory
  - Used for primitive data types (number, string, boolean, null, undefined, symbol, bigint).
@@ -621,7 +644,7 @@ console.log(typeof (x.s)) // undefined
 ⚡ Important: Changes in one reference affect all variables pointing to that object.
 
 Example:
-
+```
 Creation: let arr1 = [1, 2];
 
 Stack: arr1 -> Address 0x001
@@ -634,9 +657,9 @@ Modification: arr2.push(3);
 
 Heap: Address 0x001 is now [1, 2, 3].
 Result: Both arr1 and arr2 now show [1, 2, 3]. 
-
+```
 -----------------------------
-# 💡 Extra Interview Insights:
+## 💡 Extra Interview Insights:
 
 1. Call by Value vs. Call by Reference (Trick Q):
  - JavaScript is always call by value.
@@ -649,7 +672,7 @@ Result: Both arr1 and arr2 now show [1, 2, 3].
 
 -----------------------------------------------------------
 
-# Prgm-4: Number methods in JS
+## Prgm-4: Number methods in JS
 
 1. To fix the numbers after decimal point in JS use <b>'toFixed'</b> method.
 
@@ -662,59 +685,71 @@ Result: Both arr1 and arr2 now show [1, 2, 3].
 
 -----------------------------------------------------------
 
-# Prgm-5: Date Method in JS
+## Prgm-5: Date Method in JS
 
 * As we know to create a date we need to create its date object. That's why [typeof Date] is object... (Interview Ques)
 
 -----------------------------------------------------------
 
-# Functions
+## Functions
 
 1. Reusable block of code, written to perform a particular task.
 
 2. In functions, 'parameters' are placeholders which defined on the time when we create a function & we want some value from user in the form of 'arguments'.
 
 3. "Default parameters": are used when no argument is passed during function call, then function automatically uses the default value.
-Example: function greet(name = "Guest") {}
+Example: ```function greet(name = "Guest") {}```
 
 4. Functions in JavaScript have a '.name' property.
-<!-- 
+``` 
 const x = () => {}
 console.log(x.name); // 'x'
--->
+```
 
 
 * Type of Functions -->
 
 1. Named Function :A function that has its own name when. It’s easy to reuse (in recursion, hard in anonymous func) and debug because the name shows up in error messages or stack traces.
 Example: 
+```
 function greet() {  --> "greet" func name.
   return "Hello!";
 }
+```
 
-2. Anonymous Function: Function that does not have any name associated with it. In anonymous functions in JavaScript, we use only the function keyword without the function name. `let greet = function(){}` An anonymous function is not accessible after its initial creation, it can only be accessed by a variable it is stored as a value.
+2. Anonymous Function: Function that does not have any name associated with it. In anonymous functions in JavaScript, we use only the function keyword without the function name. ```let greet = function(){}``` An anonymous function is not accessible after its initial creation, it can only be accessed by a variable it is stored as a value.
 
 Example: Arrow functions are always anonymous function.
+```
 let displayName = () => {
   return "Hello!";
 }
+```
 
 Note: You are not calling the anonymous function directly; you are calling the variable that holds a reference to that function & assigning anonymous-function variable called "Function Expression".
 
 Example: func value save in "greet variable" but it's anonymous func.
+```
 const greet = function() {
   return "Hi there!";
 };
 console.log(greet());
+```
 
 3. Arrow Function (ES6)
 A new way to write functions using the => syntax. They do not have their own 'this' keyword.
 
-Example: const square = n => n * n;   input: square(3) output: 9
+Example: 
+```
+const square = n => n * n;   
+input: square(3) 
+output: 9
+```
 
 4. Immediately Invoked Function Expression (IIFE): are executed immediately after code run without calling function specifically. They are often used to create isolated scopes or any function which programs required to run at start of the execution.
 
 Example: Anonymous IIFE functions
+```
 (function () {
     console.log("This runs immediately!");
 })();
@@ -723,15 +758,18 @@ Example: Anonymous IIFE functions
 (() => {
     console.log("This runs immediately!");
 })();
+```
 
 * Named IIFE: You can provide a name to the function expression. This name is only accessible inside the function itself and is useful for recursion or clearer stack traces during debugging.
-
+```
 (function myPrivateFunction() {
     console.log("I have a name, but you can't call me from outside!");
 })();
+```
 
 5. Callback Functions: is passed as an argument to another function and is executed after the completion of that function.
 Example:
+```
 const numSquare = (n) => n * n;
 
 function num(n, callback) {
@@ -739,11 +777,12 @@ function num(n, callback) {
 }
 
 console.log(num(5, numSquare)); // output: 25
+```
 
 6. Constructor Function: A function used to create a constructor obj, which is creating multiple objects with the same structure. It’s called with the 'new' keyword.
 
 Example: Refer--> (prgm-8), Here 'this' keyword are used to create an obj.
-
+```
 class User {
   constructor(name = "Guest", role = "Viewer") {
     this.name = name;
@@ -758,8 +797,10 @@ console.log(user.role); // Admin
 const anon = new User(); //  No Argument Passed
 console.log(anon.name); // Guest (Default Parameters)
 console.log(anon.role); // Viewer (Default Parameters)
+```
 
 Example:
+```
 // Passing Argument as a 'Object'
 class Car {
   constructor({ brand, model, year = 2025 }) {
@@ -770,19 +811,24 @@ class Car {
 }
 
 const car = new Car({brand: 'tata', model:'nano'});
-console.log(car.brand, car.model, car.year); // tata nano 2025
+console.log(car.brand, car.model, car.year); 
+// tata nano 2025
+```
 
-<!-- Note: In modern JS (ES6+), constructor functions are "wrapped" inside classes primarily to provide a more structured, readable, and safe way to handle object-oriented programming (OOP).  -->
+Note: In modern JS (ES6+), constructor functions are "wrapped" inside classes primarily to provide a more structured, readable, and safe way to handle object-oriented programming (OOP).  -->
 
 7. Async Function: Functions that handle asynchronous tasks. Declared with async, they return a Promise, and you can use await inside them to pause until another Promise resolves.
 Example:
+```
 async function fetchData() {
   return "Data fetched!";
 }
 fetchData().then(console.log); // Data fetched!
+```
 
 8. Generator Function: Declared with an asterisk *, these functions can pause execution using yield and resume later. Useful for lazy loading values or handling iterators.
 Example:
+```
 function* numbers() {
   yield 1;
   yield 2;
@@ -792,17 +838,21 @@ function* numbers() {
 const gen = numbers();
 console.log(gen.next().value); // 1
 console.log(gen.next().value); // 2
+```
 
 9. Recursive Function (Recursion): A function that calls itself until a condition is met. Very useful for problems like factorial, Fibonacci, or tree traversals.
 Example:
+```
 function factorial(n) {
   if (n === 0) return 1;
   return n * factorial(n - 1);
 }
 console.log(factorial(5)); // 120
+```
 
 10. Nested Functions: Functions defined within other functions are called nested functions. They have access to the variables of their parent function.
 Example:
+```
 function outerFun(a) {
     return innerFun = (b) => {
         return a + b;
@@ -811,13 +861,16 @@ function outerFun(a) {
 
 const addTen = outerFun(10);
 console.log(addTen(5)); // 15
+```
 
 11. Rest Parameter Function: Uses ... to collect all remaining arguments into an array. Very useful when you don’t know how many arguments will be passed.
 Example:
+```
 function sum(...nums) {
   return nums.reduce((a, b) => a + b, 0);
 }
 console.log(sum(1, 2, 3, 4)); // 10
+```
 
 --------------------------------------------
 
@@ -828,12 +881,12 @@ console.log(sum(1, 2, 3, 4)); // 10
 2. Returns another function as its result.
 
 Example: 
-
+```
 function fun() {
     console.log("Hello, World!");
 }
 
-<!-- High Order Function -->
+``` High Order Function -->
 function fun2(fn) {
     fn();
     fn();
@@ -843,52 +896,55 @@ fun2(fun);
 
 O/P: Hello, World!
      Hello, World!
-
+```
 
 * Popular Higher Order Functions in JavaScript -->
 
 1. 'Map' function: Used to transform an array by applying a callback function to each element. It returns a new array.
-
+```
 const n = [1, 2, 3, 4, 5];
 const square = n.map((num) => num * num);
 console.log(square);
 
 O/P: [1,4,9,16,25]
+```
 
-<!-- map send each element as an argument '(num) => num * num'. -->
-<!-- A new array is returned. -->
+Note: map send each element as an argument '(num) => num * num'. --> A new array is returned.
 
 
 2. 'Filter' function: Used to create a new array containing elements that satisfy a given condition. 
 
-<!-- It iterates through each element of the array and invokes the callback function for each element. If the callback function returns true for an element, that element is included in the new array; otherwise, it is excluded. -->
+ It iterates through each element of the array and invokes the callback function for each element. If the callback function returns true for an element, that element is included in the new array; otherwise, it is excluded. -->
 
+```
 const n = [1, 2, 3, 4, 5];
 const even = n.filter((num) => num % 2 === 0);
 console.log(even);
 
 O/P: [2,4]
+```
 
- <!-- The callback '(num) => num % 2 === 0' filters out elements not divisible by 2. -->
- <!-- The resulting array contains only even numbers. -->
-
+ The callback '(num) => num % 2 === 0' filters out elements not divisible by 2. -->
+ The resulting array contains only even numbers.
 
 3. 'Reduce' function: Accumulates array elements into a single value based on a callback function.
 
-<!-- It executes a provided callback function once for each element in the array, resulting in a single output value. The callback function takes four arguments: accumulator, currentValue, currentIndex, and the array itself. -->
+  It executes a provided callback function once for each element in the array, resulting in a single output value. The callback function takes four arguments: accumulator, currentValue, currentIndex, and the array itself.
 
+```
 const n = [1, 2, 3, 4, 5];
 const sum = n.reduce((init, arrElement) => init + arrElement, 0);
 console.log(sum);
 
 O/P: 15
+```
 
- <!-- The callback '(init, arrElement) => init + arrElement' adds all elements. -->
- <!-- 0 is the initial value = 'init'. -->
-
- <!-- 
+  The callback '(init, arrElement) => init + arrElement' adds all elements. -->
+  0 is the initial value = 'init'.
+ 
  Example: Program for Filter, Map, & Reduce.
 
+```
  const arr = [1,2,3,4,5,6];
   const result = arr.filter(num => num % 2===0)
               .map(num => num * 2)
@@ -896,44 +952,51 @@ O/P: 15
   console.log(result); 
 
   Output: 24
-  First, array elements are filtered, resulting [2, 4, 6], then mapped to [4, 8, 12], then reduced to 24.
-  -->
+```
+Note: First, array elements are filtered, resulting [2, 4, 6], then mapped to [4, 8, 12], then reduced to 24.
+
 
 4. forEach function: Executes each array element. Not return any new array.
-
+```
 const n = [1, 2, 3];
 n.forEach((num) => console.log(num * 2));
 
 O/P: 2, 4, 6
+```
 
 5. find function: Returns the first element in the array that satisfies a given condition.
-
+```
 const n = [1, 2, 3, 4, 5];
 const fEven = n.find((num) => num % 2 === 0);
 console.log(fEven); // 2
+```
 
- <!-- The callback '(num) => num % 2 === 0' finds the first even number. -->
- <!-- If no element satisfies the condition, it returns 'undefined'. -->
+Note: The callback '(num) => num % 2 === 0' finds the first even number. --> If no element satisfies the condition, it returns 'undefined'.
 
 6. some function: Checks if at least one array element satisfies a condition.
-
+```
 const n = [1, 2, 3, 4, 5];
 const hasNeg = n.some((num) => num < 0);
 console.log(hasNeg);
+```
 
- <!-- It returns true if any element passes the condition, false otherwise. -->
+Note: It returns true if any element passes the condition, false otherwise.
 
 7. every function: Checks if all array elements satisfy a condition.
-
+```
 const n = [1, 2, 3, 4, 5];
-const allPos = n.every((num) => num > 0); // checks if all numbers are positive.
-console.log(allPos)
 
- <!-- It returns true only if all elements pass the condition. -->
+// checks if all numbers are positive.
+const allPos = n.every((num) => num > 0); 
+
+console.log(allPos)
+```
+
+Note: It returns true only if all elements pass the condition.
 
 --------------------------------------------
 
-## 1. Function Declarations
+### 1. Function Declarations
 A Function Declaration is the traditional way to define a function. It uses the function keyword followed by the name of the function.
 
 Key Characteristics:
@@ -942,7 +1005,7 @@ Key Characteristics:
 
   - Must be named: You cannot create an anonymous function declaration.
 
-## 2. Function Expressions ("Initialized Functions")
+### 2. Function Expressions ("Initialized Functions")
 A Function Expression is when a function is created and assigned (initialized) to a variable. Since it is treated like a variable assignment, it follows the rules of variables (var, let, or const).
 
 Key Characteristics:
@@ -955,7 +1018,7 @@ Key Characteristics:
 
 --------------------------------------------
 
-## Some Important function articles for interview point of view:
+### Some Important function articles for interview point of view:
  
 1. Currying function : https://www.geeksforgeeks.org/javascript/what-is-currying-function-in-javascript/
 
@@ -970,28 +1033,31 @@ Key Characteristics:
 1. Function Composition: is the process of combining multiple functions to create a new function. The composed function applies multiple operations in sequence.
 
 Example: 
-<!-- Function-1 -->
-function add(x) {  <!-- Parameter: f -->
+``` 
+1. Function-1 -->
+function add(x) {
     return x + 2;
 }
 
-<!-- Function-2 -->
-function mul(x) {  <!-- Parameter: g -->
+2. Function-2 -->
+function mul(x) {
     return x * 3;
 }
 
-<!-- Function-Compose -->
+3. Function-Compose -->
 function compose(f, g) {
     return function(x) {
         return f(g(x));
   };
 }
 var res = compose(add, mul)(4);
-console.log(res); <!-- Output: 14 -->
+console.log(res); 
+
+Output: 14
 
 Output: x=4 --> g(4) --> (4*3 = 12) --> f(6) --> (12+2 = 14)
+``` 
 
-<!-- 
   High-order function: LeetCode Problem
 
   Given an array of functions [f1, f2, f3, ..., fn], return a new function that is the function composition of the array of functions.
@@ -999,11 +1065,13 @@ Output: x=4 --> g(4) --> (4*3 = 12) --> f(6) --> (12+2 = 14)
   'function composition' of the array of functions is that iterate from last to first position.
 
   Example:
-
-  Input: functions = [x => x + 1, x => x * x, x => 2 * x], x = 4
+```
+  Input: 
+  functions = [x => x + 1, x => x * x, x => 2 * x], x = 4
   Output: 65
 
-  Input: functions = [x => 10 * x, x => 10 * x, x => 10 * x], x = 1
+  Input: 
+  functions = [x => 10 * x, x => 10 * x, x => 10 * x], x = 1
   Output: 1000
 
 
@@ -1019,14 +1087,12 @@ Output: x=4 --> g(4) --> (4*3 = 12) --> f(6) --> (12+2 = 14)
           return result;
       }
   };
-
- -->
-
+```
 
  2. Currying: transforms a function that takes multiple arguments into a series of functions that each take one argument. This allows partial application of the function.
 
  Example:
-
+```
   function mul(x) {
     return function(y) {
         return x * y;
@@ -1034,23 +1100,23 @@ Output: x=4 --> g(4) --> (4*3 = 12) --> f(6) --> (12+2 = 14)
   }
   
   var mulFn = mul(2);
-  console.log(mulFn(5));  <!-- Output: x=2, y=5 : 10 -->
+  console.log(mulFn(5));
+  Output: x=2, y=5 : 10
 
-  <!-- Confusion-Point: 
-        var mulFn = mul(x=2);
+  // Confusion-Point: 
+  var mulFn = mul(x=2);
 
-        mulFn = function(y) {
-                    return x * y;
-                };
+  mulFn = function(y) {
+              return x * y;
+          };
 
-        mulFn(y=5) pass argument to the inner func.
-   -->
-
+  mulFn(y=5) pass argument to the inner func.
+  ```
 
    3. Memoization: is a technique (not any inbuilt func.), where function results are 'cached' so that repeated calls with the same arguments return faster. This is particularly useful for large amt. of same function calls to fast the process.
 
    Example: Prgm-7
-
+```
    function memoize(func) {
       var cache = {};
       return function (arg) {
@@ -1072,14 +1138,14 @@ Output: x=4 --> g(4) --> (4*3 = 12) --> f(6) --> (12+2 = 14)
     var fast = memoize(slow);
     console.log(fast(5)); // Computing... 10
     console.log(fast(5)); // 10 (cached)
+  ```
 
-    <!-- memoize caches the results of 'slow' function calls. The second time fast(5) is called, the result is fetched from the cache, avoiding recomputation. 
-    This optimization improves performance by saving on redundant calculations.
-    -->
+  Note: memoize caches the results of 'slow' function calls. The second time fast(5) is called, the result is fetched from the cache, avoiding recomputation. 
+  This optimization improves performance by saving on redundant calculations.
 
------------------------------------------------------------
+------------------------------------------------------
 
-# Arrays
+## Arrays
 
 - An array is an ordered list of values. 
 - In JS, arrays can hold any type of data-such as numbers, strings, objects, or even other arrays—making them a flexible array data-structure.
@@ -1087,46 +1153,49 @@ Output: x=4 --> g(4) --> (4*3 = 12) --> f(6) --> (12+2 = 14)
 - 'typeof' of an array is 'object'.
 
 1. Creating array using 'literal' method:
-<!-- let a = [] -->
+``` let a = [] ```
 
-2. Creating array using 'new-keyword/ Array Constructor' :
-<!-- let a = new Array() -->
+2. Creating array using 'new-keyword/ Array Constructor'
+``` let a = new Array() ```
 
 Note: Both the above methods do exactly the same. Use the 'literal method' for efficiency, readability, and speed.
 
-Bug: <!-- let a = [5] --> & <!-- let a = new Array(5) --> are not same.
+Bug: ``` let a = [5] ``` & ``` let a = new Array(5) ``` are not same.
 
 - in 1st: arr output: [5] --> (Element 5 at idx 0 is created).
+
 - in 2nd: arr output: [ <5 empty items> ] --> (Empty array with space of 5 is created).
 
-Imp: <!-- let a = [1,2,3] --> & <!-- let a = new Array(1,2,3) --> are same.
+Imp: ```let a = [1,2,3]``` & ```let a = new Array(1,2,3)``` are same.
 
-## Array Built-in methods:
+---
+### Array Built-in methods:
 
 1. 'Push' & 'Pop' : 
   - 'push' is used to add new element in array from 'end'.
   - 'pop' is used to remove element in array from 'end'.
   Example: 
-  <!-- 
+  ``` 
     let arr = [1,2,3];
     arr.push(4) -- arr = [1,2,3,4];
     arr.pop() -- arr = [1,2,3];
-   -->
+  ```
 
-2. 'Unshift' & 'Shift' :
+2. 'Un-shift' & 'Shift' :
   - 'unshift' is used to add new element in array from 'start'.
+
   - 'shift' is used to remove element in array from 'start'.
   Example: 
-  <!-- 
+  ``` 
     let arr = [1,2,3];
     arr.unshift(4) -- arr = [4,1,2,3];
     arr.shift() -- arr = [1,2,3];
-   -->
+  ```
 
 3. 'Slice' & 'Splice' :
   - 'Slice' method 'copy' the element of a given range, i.e. start idx & end idx (excluded).
   Note: 'Slice' method return new array. No changes in original array.
-  <!-- 
+  ``` 
   let arr1 = [1,2,3,4];
 
   console.log(arr1.slice(0,2));
@@ -1134,11 +1203,11 @@ Imp: <!-- let a = [1,2,3] --> & <!-- let a = new Array(1,2,3) --> are same.
   
   Output: [ 1, 2 ]
           [ 1, 2, 3, 4 ] -- OG Array Unchanged.
-   -->
+  ```
 
   - 'Splice' method 'cut' the element of a given range, i.e. start idx & end idx (excluded).
   Note: 'Splice' method return new array. Make changes in original array.
-  <!-- 
+  ``` 
   let arr2 = [4,5,6,7];
 
   console.log(arr2.splice(0,2));
@@ -1146,12 +1215,12 @@ Imp: <!-- let a = [1,2,3] --> & <!-- let a = new Array(1,2,3) --> are same.
   
   Output: [ 4, 5 ]
           [ 6, 7 ] -- OG Array Changed/ Modified.
-   -->
+  ```
 
 4. Array 'Concatenation': Combine two or more arrays using the concat() method. 
 Note: It returns new array containing joined arrays elements.
 
-<!-- 
+``` 
     let a = ["HTML", "CSS", "JS", "React"];
     let b = ["Node", "Expess"];
 
@@ -1160,38 +1229,38 @@ Note: It returns new array containing joined arrays elements.
 
     console.log(concateArray);
 
-    Output: [ 'HTML', 'CSS', 'JS', 'React', 'Node', 'Expess' ]
- -->
+    Output: [ 'HTML', 'CSS', 'JS', 'React', 'Node', 'Express' ]
+```
 
 5. Conversion of an Array to String: Builtin method toString() to converts an array to a string.
 
-<!-- 
+``` 
     let a = ["HTML", "CSS", "JS"];
 
     // Convert array ot String
     console.log(a.toString());
 
     Output: 'HTML,CSS,JS'
- -->
+```
 
 6. Recognize Array: Using  'Array.isArray()' & 'instanceof' method.
 
-<!-- 
+``` 
     const courses = ["HTML", "CSS", "Javascript"];
 
     console.log(Array.isArray(courses))   // true
     console.log(courses instanceof Array) // true
- -->
+```
 
 7. 'join()' Method: Creates and returns a new string by concatenating all elements of an array. 
 Note: We can pass optional specified separator between each element in the resulting string.
 
-<!-- 
+``` 
   let a = ["HTML", "CSS", "JS", "React"];
   console.log(a.join(', '));
 
   Output: HTML, CSS, JS, React
- -->
+```
 
 8. 'flat()' Method: Used to flatten the array i.e. it merges all the nested arrays into single array.
   * Non-Mutating: It returns a new array and does not modify the original array.
@@ -1200,24 +1269,25 @@ Note: We can pass optional specified separator between each element in the resul
 
   Note: depth (Optional): An integer specifying how many levels of nesting to flatten. 
   - Default is level-1 (Single Level Flattening), Level-2 (Multi-Level Flattening)
+  
   - 'Infinity' --> To flatten an array of any depth into a single dimension.
-<!-- 
+``` 
   const a1 = [['1', '2'], ['3', '4', '5',['6'], '7']];
   const a2 = a1.flat(Infinity);
   
   Output: ['1', '2', '3', '4', '5', '6', '7']
- -->
+```
 
  Note: Also remove empty space in between Array
- <!-- 
-    const arr = [1, , 3, 4, , 5];
-    arr.flat(); // [1, 3, 4, 5]
-  -->
+ ``` 
+  const arr = [1, , 3, 4, , 5];
+  arr.flat(); // [1, 3, 4, 5]
+```
 
 9. 'indexOf(element)'--> return idx of element & 'includes(element)'--> return true/false.
 
 10. 'fill()' method: fills the array with specified given element.
-<!-- 
+``` 
   1st: Fill Empty Array
   let arr = new Array(5);
 
@@ -1227,47 +1297,48 @@ Note: We can pass optional specified separator between each element in the resul
   let arr = [1,2,3];
 
   arr.fill(10); // [10,10,10]
- -->
+```
 
 11. 'reverse()' --> simple reverse the arr
-<!-- arr.reverse() = [3,2,1] -->
+``` arr.reverse() = [3,2,1] ```
 
 12. 'sort()' method: 
   - In-Place Mutation: It modifies the original array rather than creating a new one.
 
   - Default Sorting: Without a compare function, it converts elements to strings and compares their UTF-16 code unit values. This can cause unexpected results for numbers (e.g., 100 comes before 25 because "1" < "2").
-
-  <!-- 
+ 
   Example:
 
   1. Numbers (Ascending): arr.sort((a, b) => a - b)
   2. Numbers (Descending): arr.sort((a, b) => b - a)
   3. Imp: Strings (Dictionary based): arr.sort((a, b) => a.localeCompare(b))
   4. Array of Objects: users.sort((a, b) => a.age - b.age)
-   -->
+
 
 13. 'Spread' Operator: In JS, the spread operator (...variableName) is used to 'expand' single element into individual elements or properties, (like array, string, or object).
 
   - Copying Arrays & Objects: It creates a shallow copy, meaning only the first level is duplicated.
-    <!-- 
-      const original = [1, 2, 3];
-      const copy = [...original]; 
-    -->
+  ``` 
+    const original = [1, 2, 3];
+    const copy = [...original]; 
+  ```
 
   - Merging Iterables: You can combine multiple arrays or objects into one.
-    <!-- 
-      const merged = [...arr1, ...arr2];
-      const mergedObj = { ...obj1, ...obj2 }; (Note: Duplicate keys are overwritten by the last object spread).
-    -->
+  ``` 
+    const merged = [...arr1, ...arr2];
+    const mergedObj = { ...obj1, ...obj2 }; 
+    
+    Note: Duplicate keys are overwritten by the last object spread.
+  ```
 
   - Function Arguments: It allows you to pass an array of values as individual arguments.
-    <!-- 
-      const nums = [5, 10, 2];
-      Math.max(...nums); // Evaluates as Math.max(5, 10, 2) 
-    -->
+  ``` 
+    const nums = [5, 10, 2];
+    Math.max(...nums); // Evaluates as Math.max(5, 10, 2) 
+  ```
 
   - Strings to Arrays: Spreading a string breaks it into an array of individual characters.
-    <!-- const chars = [..."Hello"]; // ["H", "e", "l", "l", "o"] -->
+    ``` const chars = [..."Hello"]; // ["H", "e", "l", "l", "o"] ```
 
 
 14. 'Rest' Operator: In JS, the rest operator (...variableName) is used to gather multiple elements into a 'single collection', such as an array or an object.
@@ -1276,37 +1347,37 @@ Note: We can pass optional specified separator between each element in the resul
   
   Note: It must be the last parameter in the function definition.
 
-  <!-- 
+  ``` 
     function sum(...numbers) {
       // 'numbers' is an actual array: [1, 2, 3, 4]
       return numbers.reduce((total, n) => total + n, 0);
     }
     console.log(sum(1, 2, 3, 4)); // Output: 10
-   -->
+  ```
 
   - Rest in 'Array Destructuring': It can capture the "remaining" elements of an array during destructuring.
-  <!-- 
+  ``` 
     const [first, second, ...others] = [10, 20, 30, 40, 50];
     console.log(first);  // 10
     console.log(second); // 20
     console.log(others); // [30, 40, 50]
-   -->
+  ```
 
   - Rest in Object Destructuring: Same as Array.
-  <!-- 
+  ``` 
     const user = { name: "Alice", age: 25, city: "New York", job: "Developer" };
     const { name, ...details } = user;
 
     console.log(name);    // "Alice"
     console.log(details); // { age: 25, city: "New York", job: "Developer" }
-   -->
+  ```
 
 -------------------------------------
 
 * Increase and Decrease the Array Length
   - We can increase and decrease the array length using the JavaScript length property.
 
-  <!-- 
+  ``` 
     let a = ["HTML", "CSS", "JS"]
 
     // Increase the array length to 7
@@ -1324,27 +1395,28 @@ Note: We can pass optional specified separator between each element in the resul
     Decreased Length:  [ 'HTML', 'CSS' ]
 
     Note: In JS arrays are flexible so there is no such need to 'Incr's/ Decr's' length of array as such.
-   -->
+  ```
 
 * Iterate array using 'forEach loop':
-<!-- 
-    let arr = ["HTML", "CSS", "JS"];
+``` 
+  let arr = ["HTML", "CSS", "JS"];
 
-    arr.forEach((x) => {
-        console.log(x);
-    });
- -->
+  arr.forEach((x) => {
+      console.log(x);
+  });
+```
 
------------------------------------------------------------
+-------------------------------------------------------
 
-# Strings
+## Strings
 
 - In JavaScript, there is no character type (Similar to Python), so a single character also called a string.
 - Like Java and Python, strings are immutable in JS also.
 - In JS, we can create a String using String Literals & Template Literals.
   1. String Literals: Strings defined in code using single quotes (') or double quotes (").
+  
   2. Template Literals: Specifically refers to strings using backticks (`)
-  Example: Template Literal: <!-- `Hello ${user.name}` -->
+  Example: Template Literal: ```Hello ${user.name}```
 
   - We can create a multiline string using backticks with template literal.
 
@@ -1352,29 +1424,29 @@ Note: We can pass optional specified separator between each element in the resul
 * Basic Operations on JavaScript Strings:
 
 1. 'Substring' method: We can extract a portion of a string using the substring() method. By giving idx value (start + end+1) Exclude last one.
-<!-- 
+``` 
   let str = 'JavaScript Tutorial';
 
   console.log(str.substring(0, 10)); // JavaScript
- -->
+```
 
 1. 'substr()' Method: Same as substring, here idx values are (start + num of character from there) include last one.
-<!-- 
+``` 
   console.log(str.substr(11, 8)); // Tutorial
- -->
+```
 
 2. 'indexOf()' method: Find the first index of a substring within a string.
-<!-- 
+``` 
   let s1 = 'def abc abc';
   let i = s1.indexOf('abc');
   ​
   console.log(i); // 4 (include space also)
- -->
+```
 
 3. 'replace()' method: Replace substring of a string. 
 Note: By default, replace() only replaces the first occurrence. To replace all occurrences, use a regular expression with the 'g flag' Using regex or 'replaceAll()' method. The original string will remain unchanged.
 
-<!-- 
+``` 
   let str = 'Mind, Power, Power, Soul';
 
   1st: console.log(str.replace('Power', 'Wealth')); // Mind, Wealth, Power, Soul
@@ -1382,17 +1454,18 @@ Note: By default, replace() only replaces the first occurrence. To replace all o
   2nd: console.log(str.replace(/Power/g, 'Dream')); // Mind, Dream, Dream, Soul
   
   3rd: console.log(str.replaceAll(/Power/g, 'Money')); // Mind, Money, Money, Soul
- -->
+```
 
 4. Imp: 'localeCompare()' method: Used to compare any two strings 'lexicographically' (refers to a method of ordering or sorting based on the alphabetical arrangement used in dictionaries).
 
-Note: localeCompare() is a case-sensitive (a != A), to make it work we can use <!-- { sensitivity: "base" } --> option.
+Note: localeCompare() is a case-sensitive (a != A), to make it work we can use ```{ sensitivity: "base" }``` option.
 
  - (0) refers to same strings. 
  - (-1) refers to string is alphabetically smaller than from which he is compared.
  - (1) refers to string is alphabetically bigger than from which he is compared.
 
- <!-- Example: 
+  Example: 
+  ```
   let str = "banana";
 
   let str1 = "apple";
@@ -1404,25 +1477,28 @@ Note: localeCompare() is a case-sensitive (a != A), to make it work we can use <
   console.log(str.localeCompare(str3)) // 1  (Upper)
   
   Another way to write: console.log('Banana'.localeCompare(str)) // -1 (Case-Insensitive)
+  ```
 
   Imp: Sort string using this.
-  
+```
   let elements = ['gfg', 'geeksforgeeks', 'cse', 'department'];
   let a = elements.sort((a, b) => a.localeCompare(b));
 
   console.log(a) // [ 'cse', 'department', 'geeksforgeeks', 'gfg' ]
-
+```
 
   Imp: To disable case-sensitivity
+  ```
   let str1 = "geeks";
   let str2 = "GEEKS";
+
   let result = str1.localeCompare(str2, undefined, { sensitivity: "base" });
   console.log(result); 
   
   Output: 0 (both strings are same)
-  -->
+  ```
 
-  Note: String created using literals <!-- str = 'Hello' --> are different then string created using 'new' keyword which is object. <!-- str = new String('Hello')-->
+  Note: String created using literals ``` str = 'Hello' ``` --> are different then string created using 'new' keyword which is object. ``` str = new String('Hello')```
 
 
 * Others: (trim, pad, charAt, charCodeAt, etc.) [https://www.geeksforgeeks.org/batch/skill-up-complete-javascript-course/track/su-js-day6/article/NDM0NDEw]
@@ -1431,10 +1507,9 @@ Note: (==) Loose Equality only check value, but Strict Equality (===) check both
 
 Imp: String interpolation refers to construction of dynamic strings by embedding expressions or variables directly within a string literal. Using Template Literal, String.concat() Method, etc.
 
+-------------------------------------------------------
 
------------------------------------------------------------
-
-# Objects -- Program-9
+## Objects -- Program-9
 
 * An object is a dynamic data structure that stores data as key-value pairs. 'each keys are unique'.
   
@@ -1451,12 +1526,12 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
   - Not recommended in Modern ES6 JS.
   [Slower, Riskier, More verbose --> (Takes more steps to achieve same result)]
 
-  <!-- 
+  ``` 
     let obj = new Object();
     obj.name= "Dev",
     obj.age= 23,
     obj.job= "Developer"
-   -->
+  ```
   
   - 'Singleton pattern', is a creational design pattern that ensures a class has only one instance and provides a global point of access to that instance.
 
@@ -1467,27 +1542,27 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
   - Keys are always converted to strings (except symbols).
 
-  <!-- 
+  ``` 
       let obj = {
           name: "Dev",
           age: 23,
           job: "Developer"
       };
-   -->
+  ```
 
 
    - Note: Factory vs. Constructor: Using 'literals' is often part of a Factory Pattern, whereas 'new keyword' is associated with Constructor Patterns or Classes.
 
   -----------------------------------
 
-  ## Basic Operations on JavaScript Objects
+  ### Basic Operations on JavaScript Objects
 
-  1. 2 ways to access object’s properties using either 'dot notation' or 'bracket notation'.
+  1. Two ways to access object’s properties using either 'dot notation' or 'bracket notation'.
 
     - Dot Notation: Simple and easy, works when the property name is a valid identifier.
     - Bracket Notation: Useful when accessing properties dynamically or when the property name includes special characters or spaces.
 
-  <!-- 
+  ``` 
     let mySbl = Symbol('Key');
 
     let obj = { 
@@ -1505,13 +1580,13 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
     console.log(obj["full name"]);
 
     console.log(obj[mySbl]); // no quotes for symbol
-  -->
+  ```
 
   - Imp: Certain properties like 'key' which have space in between or 'symbols' in JS (ES6) cannot be accessible through dot notations. Need to use bracket notation to access them.
 
   
   2. Modify, add, remove Object Properties
-  <!-- 
+  ``` 
     let obj = { name: "Dev", age: 22 };
     console.log(obj);
 
@@ -1521,7 +1596,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
     delete obj.age; // Remove property
     console.log(obj);
-   -->
+  ```
 
 
   3. Check Property Exists: We can check if an object contains a particular property using the 'in' operator or 'hasOwnProperty()' method.
@@ -1529,19 +1604,19 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
     - in Operator: Checks if the property exists in the object or its prototype chain.
     - hasOwnProperty(): Only checks properties owned directly by the object, not nested one.
 
-  <!-- 
+  ``` 
     console.log("age" in obj); // false ... because we removed the age property in above code
 
     console.log(obj.hasOwnProperty("height")); // true
-  -->
+  ```
 
 
   4. Iterating Through Object Properties: using for...in loop
-  <!-- 
+  ``` 
     for(let key in obj) {
       console.log(key + ": " + obj[key]);
     }
-   -->
+  ```
 
    Note: In JavaScript, Symbols are intentionally designed to be "invisible" to most standard ways of viewing or looping through an object.
 
@@ -1556,25 +1631,25 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
   
   5. Merging Objects : Objects can be merged using 'Object.assign()' or the spread syntax { ...obj1, ...obj2 }.
 
-  <!-- 
+  ``` 
       // One way : Object.assign(target, source's);
       let obj3 = Object.assign({}, obj1, obj2, obj3...objN);
 
       // Another way : Simple & Easy Using (Spread Operator)
       let obj3 = { ...obj1, ...obj2 };
-   -->
+  ```
 
   6. Obtain Object Keys, Values, length etc.
-  <!-- 
+  ``` 
       Object.keys(obj)    -- gives keys array
       Object.values(obj)  -- gives values array
       Object.entries(obj) -- gives [[key, value]] nested array.
 
       Object.keys/values/entries(obj).length
-   -->
+  ```
 
   7. Object Destructuring : Useful in API Call & React
-  <!-- 
+  ``` 
       let course = {
         'instructor' : 'Dev'
       }
@@ -1585,7 +1660,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
       2nd: let {instructor: teacher} = course;
            console.log(teacher) // Same as 'course.instructor'
-   -->
+  ```
 
 --------------------------------------
 
@@ -1597,7 +1672,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
   4. No Modifications: You cannot change the values of existing keys.
   5. Non-Configurable: You cannot change the property
 
-  <!-- 
+  ``` 
     const user = {
       name: "Alice",
       role: "Admin"
@@ -1606,7 +1681,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
     Object.freeze(user);
 
     user.name = "Bob";  // Fails silently (or throws TypeError in Strict Mode)
-    -->
+  ```
 
   
   Note: Shallow" Limitation (Critical Interview Point)
@@ -1664,7 +1739,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
 * Accessors (Getters and Setters): Objects can have computed properties using getters and setters.
 
-<!-- 
+``` 
   let obj = {
     fName: 'Dev',
     lName: 'Shukla',
@@ -1684,7 +1759,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
   console.log(obj.fName);
   console.log(obj.lName);
- -->
+```
 
  Note: Getters allow reading, and setters enable modifying properties in a controlled manner.
 
@@ -1695,9 +1770,9 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
  1. Shallow Copy of Obj: A shallow copy occurs when you assign one object to another using the assignment operator (=). In this process, only the top-level properties are copied.
  Imp: Nested objects or arrays still reference the original memory location. This means that if you change the nested properties in one object, those changes will reflect in the other because they share the same memory reference.
 
- <!-- 
-    let objShallow = {...obj3};
-  -->
+ ``` 
+  let objShallow = {...obj3};
+ ```
 
  Note: Shallow copy issues occur only when the object contains nested objects or arrays.
 
@@ -1706,11 +1781,11 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
  * Creating a Deep Copy: To create a deep copy of an object in JS we use JSON.parse() and JSON.stringify() methods.
 
- <!-- 
-    let objDeep = JSON.parse(JSON.stringify(obj3));
-  -->
+ ``` 
+  let objDeep = JSON.parse(JSON.stringify(obj3));
+ ```
 
-  Note: Limitations of JSON.parse() and JSON.stringify() -->
+  Note: Limitations of JSON.parse() and JSON.stringify()
 
   - Functions, undefined, and certain other values are lost when using JSON.stringify().
 
@@ -1720,25 +1795,25 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
   3. Lodash To Deep Copy: It's a JS library that provides multiple utility functions and one of the most commonly used functions is the cloneDeep() method. 
   Imp: This method helps to overcome limitation exists in JSON.stringify()
 
-  <!-- 
-      const lodash = require('lodash');
-      let deepCopy = lodash.cloneDeep(obj3);
-   -->
+  ``` 
+    const lodash = require('lodash');
+    let deepCopy = lodash.cloneDeep(obj3);
+  ```
 
    ## Lodash Documentation: [https://lodash.com/docs/4.17.21]
 
-   <!-- 
-      To use In a browser:
-      <script src="lodash.js"></script>
-      
-      
-      To use in JS outside of browser using NodeJS:
-      
-      // Load the full build.
-      var _ = require('lodash');
+   ``` 
+    To use In a browser:
+    <script src="lodash.js"></script>
+    
+    
+    To use in JS outside of browser using NodeJS:
+    
+    // Load the full build.
+    var _ = require('lodash');
 
-      or ES6 module (modern way) : import _ from 'lodash';
-    -->
+    or ES6 module (modern way) : import _ from 'lodash';
+  ```
 
 
 -----------------------------------------------------------
@@ -1756,7 +1831,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
     - Accessible everywhere in the code.
     - Can be accessed inside functions and blocks.
 
-    <!-- 
+    ``` 
       let globalVar = 'I am global';
 
       function myFunc() {
@@ -1764,35 +1839,35 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
       }
 
       myFunc(); // Output: I am global
-     -->
+    ```
 
   2. Function Scope (Local Scope):
     - Variables declared inside a function using 'var, let, const' are function-scoped.
     - Only accessible within that function.
     - Cannot be accessed outside the function.
 
-    <!-- 
+    ``` 
       function myFunc() {
           var localVar = 'I am local';
           console.log(localVar); // Accessible
       }
 
       console.log(localVar); // ReferenceError: localVar is not defined
-     -->
+    ```
 
   3. Block Scope (ES6):
     - Variables declared with 'let' and 'const' inside a block { } are block-scoped.
     - Only accessible within that block.
     - Cannot be accessed outside the block.
 
-    <!-- 
+    ``` 
       if (true) {
           let blockVar = 'I am block-scoped';
           console.log(blockVar); // Accessible
       }
 
       console.log(blockVar); // ReferenceError
-     -->
+    ```
 
 * Scope Chain:
   - When JavaScript looks for a variable, it starts from the innermost scope and moves outward (to parent scopes).
@@ -1814,7 +1889,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
   - When a function is created, it automatically has access to its own scope and parent scopes.
   - A closure 'captures' variables from its surrounding scope.
 
-  <!-- 
+  ``` 
     function outer() {
         let count = 0;  // Captured by closure
 
@@ -1833,14 +1908,14 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
     Note: 'count' variable is 'NOT' destroyed even after outer() execution is complete.
     The inner function remembers the 'count' variable.
-   -->
+  ```
 
 * Practical Use Cases:
 
   1. Data Encapsulation (Private Variables):
     - Use closures to create private variables that cannot be accessed directly from outside.
 
-    <!-- 
+    ``` 
       function createBankAccount(initialBalance) {
           let balance = initialBalance; // Private variable
 
@@ -1865,12 +1940,12 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
       console.log(account.getBalance()); // 1500
       
       console.log(account.balance); // undefined (private, cannot access directly)
-     -->
+    ```
 
   2. Function Factories (Creating Specialized Functions):
     - Use closures to create functions that have pre-configured behavior.
 
-    <!-- 
+    ``` 
       function makeMultiplier(multiplier) {
           return function(number) {
               return number * multiplier;
@@ -1882,12 +1957,12 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
       console.log(double(5)); // 10
       console.log(triple(5)); // 15
-     -->
+    ```
 
   3. Callback Functions with Context:
     - Closures help maintain context in asynchronous operations.
 
-    <!-- 
+    ``` 
       function setupButton(buttonId, message) {
           let button = document.getElementById(buttonId);
 
@@ -1897,7 +1972,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
       }
 
       setupButton('btn1', 'Button 1 Clicked!');
-     -->
+    ```
 
 * Interview Key Point:
   - Q: "What is a closure?"
@@ -1920,7 +1995,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
     - They are initialized with 'undefined' by default.
     - This is why you can access a 'var' variable before it's declared, but it will be 'undefined'.
 
-    <!-- 
+    ``` 
       console.log(x); // undefined (NOT ReferenceError)
       var x = 5;
       console.log(x); // 5
@@ -1930,14 +2005,14 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
       console.log(x); // undefined
       x = 5; // Assignment stays here
       console.log(x); // 5
-     -->
+    ```
 
   2. Variable Hoisting with 'let' and 'const':
     - Declarations are hoisted, but NOT initialized.
     - They are placed in 'Temporal Dead Zone (TDZ)' from the start of the scope until the declaration is reached in the code.
     - Accessing them in the TDZ throws a ReferenceError.
 
-    <!-- 
+    ``` 
       console.log(y); // ReferenceError: Cannot access 'y' before initialization
       let y = 10;
 
@@ -1946,14 +2021,14 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
       console.log(y); // ReferenceError
       let y = 10; // TDZ Zone ends here
       console.log(y); // 10
-     -->
+    ```
 
   3. Function Hoisting:
     - Function 'declarations' are fully hoisted.
     - You can call a function 'before' it's declared in the code.
     - Function 'expressions' (assignments) are NOT hoisted.
 
-    <!-- 
+    ``` 
       Hoisted - Works fine:
       greet(); // Output: Hello!
 
@@ -1968,23 +2043,23 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
       var sayBye = function() {
           console.log('Bye!');
       };
+    ```
 
-      Note: sayBye is hoisted as 'undefined' (because of 'var'), not the function itself.
-     -->
+    Note: sayBye is hoisted as 'undefined' (because of 'var'), not the function itself.
 
 * Temporal Dead Zone (TDZ):
   - The TDZ is the region from the start of a block until the point where a variable (declared with 'let' or 'const') is declared.
   - Accessing a variable in the TDZ throws a ReferenceError.
   - 'var' does NOT have a TDZ.
 
-  <!-- 
+  ``` 
     function test() {
         console.log(a); // ReferenceError (TDZ for 'a')
         let a = 5;
     }
 
     test();
-   -->
+  ```
 
 * Hoisting and Scope Interaction:
   - Variables are hoisted only within their scope.
@@ -1992,7 +2067,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
   - Function variables hoist to their function scope.
   - Block variables (let/const) hoist to their block scope.
 
-  <!-- 
+  ``` 
     var globalVar = 'global';
 
     function myFunc() {
@@ -2001,7 +2076,7 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
     }
 
     myFunc();
-   -->
+  ```
 
 ---
 
