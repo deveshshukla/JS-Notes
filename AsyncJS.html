@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AsyncJS Practice</title>
+</head>
+<body>
+
+    <div style="display: flex; flex-direction: column; justify-content: center;">
+        <button class="btnStart" style="height: 3rem; cursor: pointer; margin-bottom: 1rem; background-color: green;">Start Timeout Function</button>
+
+        <button class="btnStop" style="height: 3rem; cursor: pointer; background-color: red;">Stop Timeout Function</button>
+
+        <p class="txtCountdown" style="text-align: center; font-size: 2rem;">Countdown</p>
+    </div>
+    
+</body>
+<script>
+    // -------- setTimeout Function --------
+
+    // 1st: direct way
+    // setTimeout(function() {
+    //     console.log('Im called after 2sec');
+    // }, 2000); // 2sec
+
+    // // 2nd: by func calling
+    // let funcTime = function() {
+    //     console.log('Im called after 3sec');
+    // };
+
+    // setTimeout(funcTime, 3000); // 3sec
+
+    // -------- Practice --------
+
+    let body = document.querySelector('body');
+    let btnStart = document.querySelector('.btnStart');
+    let btnStop = document.querySelector('.btnStop');
+    let txtCountdown = document.querySelector('.txtCountdown');
+
+    btnStart.addEventListener('click', timeOut);
+
+    function timeOut() {
+
+        // Reset style
+        body.style.backgroundColor = 'white';
+        btnStop.style.visibility = 'visible';
+
+        let timeCount = 10;
+
+        let interval = setInterval(() => {
+            if (timeCount > 0) {
+                txtCountdown.innerHTML = `Change BG Color Timeout Started! 
+            BG Color Will change in ${timeCount-=1}`;
+            }else {
+                txtCountdown.innerHTML = `Change BG Color Timeout Started! 
+            BG Color is changed`;
+            clearInterval(interval);
+            }
+        }, 1000);
+
+        let changeBgColor = setTimeout(function() {
+            body.style.backgroundColor = 'orange';
+            btnStop.style.visibility = 'hidden';
+        }, timeCount*1000); // 10sec
+
+        btnStop.addEventListener('click', () => {
+            clearTimeout(changeBgColor);
+            clearInterval(interval);
+
+            txtCountdown.innerHTML = `Change BG Color Timeout Stopped!!`;
+        });
+
+    };
+
+</script>
+</html>
