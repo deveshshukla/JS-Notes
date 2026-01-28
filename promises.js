@@ -242,21 +242,9 @@ WHAT DOES AWAIT DO?
               COMPARISON: ASYNC/AWAIT vs .THEN()
 ================================================================================
 
-1. CODE FLOW:
-   
-   .then() approach:
-   - Callbacks are executed later
-   - Hard to trace flow in complex chains
-   - Multiple .then() blocks can be nested
-   
-   async/await approach:
-   - Code reads top to bottom, like normal synchronous code
-   - Much easier to follow the execution flow
-   - Cleaner and more intuitive
+PERFORMANCE: Both perform similarly - async/await is compiled to .then() under the hood.
 
-2. PERFORMANCE: Both perform similarly - async/await is compiled to .then() under the hood.
-
-3. BROWSER/NODE SUPPORT:
+BROWSER/NODE SUPPORT:
    
    .then() approach:
    - Supported in all modern browsers and Node.js versions
@@ -265,26 +253,6 @@ WHAT DOES AWAIT DO?
    async/await approach:
    - Works in modern browsers and Node.js 7.6+
    - May need transpiler for older environments
-
-================================================================================
-              WHEN TO USE WHICH?
-================================================================================
-
-USE .THEN() WHEN:
-- You need to support older browsers or Node.js versions
-- You're working with simple, single-step async operations
-- Working in frameworks that prefer promise chains
-
-USE ASYNC/AWAIT WHEN:
-- You have multiple sequential async operations
-- You want cleaner, more readable code
-- You prefer try-catch for error handling
-- You're writing modern JavaScript (ES2017+)
-- You want to avoid deeply nested .then() chains
-
-RECOMMENDATION:
-async/await is the modern standard and is preferred for new code.
-It's more readable and easier to maintain.
 */
 
 
