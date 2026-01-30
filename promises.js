@@ -100,26 +100,6 @@ A10:
    - Allows writing asynchronous code that looks synchronous
    - Makes error handling easier with try-catch blocks
    - It's the modern way to work with promises
-
-================================================================================
-                         PRACTICAL NOTES
-================================================================================
-
-BEST PRACTICES:
-1. Always return promises from .then() blocks for proper chaining
-2. Use .catch() at the end of promise chains for error handling
-3. Don't mix callbacks and promises - choose one approach
-4. Use async/await for cleaner, more readable code
-5. Avoid nesting .then() calls - use promise chaining instead
-6. Remember promise chains execute in order
-
-COMMON MISTAKES:
-1. Forgetting to return a value in .then()
-2. Not handling rejected promises
-3. Creating unnecessary promise wrappers (promise constructor anti-pattern)
-4. Using async/await without try-catch for error handling
-
-================================================================================
 */
 
 
