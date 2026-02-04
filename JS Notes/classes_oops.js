@@ -84,3 +84,144 @@ class Animal {
 }
 const a1 = new Animal('Dog', 'woof');
 console.log(a1.speak()); // Dog says woof
+
+
+
+/*
+══════════════════════════════════════════════════════════════════
+======== 4 PILLARS OF OOP (Interview Notes) ========
+══════════════════════════════════════════════════════════════════
+
+1) ABSTRACTION
+───────────────
+Definition:
+- Hiding the complexity of internal implementation and exposing only the essential features.
+- Users interact with simplified interfaces without knowing how things work internally.
+
+Key Points:
+- Hide unnecessary details; show only what's needed.
+- Use methods as interfaces (e.g., user calls greet() without knowing internal logic).
+
+Example:
+Like a car driver doesn't need to know engine mechanics; they just use the steering wheel and pedals."
+
+
+2) ENCAPSULATION (Data Hiding)
+──────────────────────────────
+Definition:
+- Bundling data (properties) and methods together in a single unit (class/object).
+- Protecting internal data by restricting direct access; using getters/setters for controlled access.
+
+Key Points:
+- Data should not be directly accessible from outside.
+- Use private fields (#field) or conventions (this._field) to protect data.
+- Provides control over how data is modified.
+- Prevents unintended changes to object state.
+
+Example:
+class Student {
+  #gpa = 0; // private field
+  
+  setGPA(newGPA) {
+    if (newGPA >= 0 && newGPA <= 4) {
+      this.#gpa = newGPA;
+    } else {
+      console.log('Invalid GPA');
+    }
+  }
+  
+  getGPA() {
+    return this.#gpa;
+  }
+}
+const s = new Student();
+s.setGPA(3.8); // valid
+s.setGPA(5);   // rejected (invalid)
+
+Interview Answer:
+"Encapsulation means bundling data and methods together, and protecting sensitive data 
+using private fields. Data changes only through controlled methods (getters/setters), 
+preventing invalid states."
+
+
+3) INHERITANCE
+───────────────
+Definition:
+- A mechanism where a child class inherits properties and methods from a parent class.
+- Allows code reuse and creating a hierarchy of classes.
+
+Key Points:
+- Child class extends parent class using `extends`.
+- Child inherits all parent methods and properties.
+- Child can override parent methods (method overriding).
+- Reduces code duplication.
+
+Example:
+class Vehicle {
+  constructor(brand) {
+    this.brand = brand;
+  }
+  start() {
+    return `${this.brand} started`;
+  }
+}
+
+class Car extends Vehicle {
+  constructor(brand, type) {
+    super(brand); // call parent constructor
+    this.type = type;
+  }
+  start() {
+    return `${super.start()} - Car mode`; // override + use parent
+  }
+}
+
+const car = new Car('Toyota', 'Sedan');
+console.log(car.start()); // Toyota started - Car mode
+
+
+4) POLYMORPHISM (Many Forms)
+──────────────────────────────
+Definition:
+- The ability of objects to take multiple forms or for methods to behave differently 
+  based on the object type or context.
+- Same method name, different behaviors based on the object.
+
+Two Types:
+a) Compile-time Polymorphism (Method Overloading) - Not directly in JS
+   - Different methods with same name but different parameters
+   
+b) Runtime Polymorphism (Method Overriding) - Available in JS
+   - Child class overrides parent method; actual method called depends on object type
+
+Example:
+class Shape {
+  area() {
+    return 'no shape';
+  }
+}
+
+class Circle extends Shape {
+  constructor(radius) {
+    super();
+    this.radius = radius;
+  }
+  area() {
+    return Math.PI * this.radius * this.radius;
+  }
+}
+
+class Square extends Shape {
+  constructor(side) {
+    super();
+    this.side = side;
+  }
+  area() {
+    return this.side * this.side;
+  }
+}
+
+const shapes = [new Circle(5), new Square(4)];
+shapes.forEach(shape => console.log(shape.area())); 
+// Different results from same method name
+*/
