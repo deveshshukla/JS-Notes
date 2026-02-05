@@ -2,14 +2,20 @@
 #### OOPs notes ===>
 
 1) Constructor function
+- It's just a blueprint to create more copies.
 - A function used with `new` to make objects.
-- `this` inside a constructor refers to the new object.
+
 - Example:
   function Person(name, age) {
+    // 'this.name & this.age' is just a variable name, we can define our own variable name also, its just industry practice
+
     this.name = name;
     this.age = age;
   }
-  const p = new Person('Alice', 30);
+
+  // create 2 new copies of same object with different info.
+  const p1 = new Person('Alice', 30);
+  const p2 = new Person('David', 28);
 
   
 2) Prototypes
@@ -22,7 +28,7 @@
 
 
 3) Classes (ES6)
-- Cleaner syntax that does the same as constructor + prototype under the hood.
+- Same as constructor + prototype under the hood.
 - Example:
   class PersonClass {
     constructor(name, age) {
@@ -83,7 +89,7 @@ class Animal {
   }
 }
 const a1 = new Animal('Dog', 'woof');
-console.log(a1.speak()); // Dog says woof
+console.log(a1.speak(),'\n'); // Dog says woof
 
 
 
@@ -225,3 +231,25 @@ const shapes = [new Circle(5), new Square(4)];
 shapes.forEach(shape => console.log(shape.area())); 
 // Different results from same method name
 */
+
+
+function Prototypal_INHERITANCE() {
+
+  // Created own method in js 'obj' itself... (not recommended)
+  // In JS Object is parent of all like array, string etc.
+
+  // Note: JS is prototypal language... prototypal chaining is like search for the specific property in every place... and last thing is object in js.
+
+  Object.prototype.trueLength = function (s) {
+      // 'this' keyword points whoever call him... point current context.
+      console.log(this); 
+      return this.trim().length;
+  };
+
+  let str = 'Dev   ';
+  console.log(str.length);
+  console.log(str.trueLength());
+
+  console.log('David   '.trueLength());
+
+}
