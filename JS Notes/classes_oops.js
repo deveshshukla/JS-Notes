@@ -253,3 +253,23 @@ function Prototypal_INHERITANCE() {
   console.log('David   '.trueLength());
 
 }
+
+
+// ============= Classes Notes =============
+
+class User{
+  constructor(username, email, password) {
+    this.username = username;
+    this.email = email;
+    this.password = password;
+  }
+
+  // we can also add some methods/func. here
+  encryptPass() {
+    return `${this.username} Encrypted pass: ${String(this.password).slice(0, 3)}***`;
+  }
+}
+
+let user1 = new User('Aaron', 'aaron@gmail.com', 'Arr@3214');
+console.log(user1);
+console.log(user1.encryptPass());
