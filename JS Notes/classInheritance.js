@@ -28,4 +28,5 @@ let user3 = new Teacher('Dev', 'dev@gmail.com', 'Dev@123');
 console.log(user3);
 
 // Teacher class extended the User class, he can access all properties of it but cannot access 'static' methods because they are 'protect' by parent class. 
-console.log(user3.api);
+
+console.log(user3.api); // undefined
