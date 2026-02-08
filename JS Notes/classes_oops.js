@@ -277,7 +277,7 @@ console.log(user1.encryptPass());
 // This is actual inner working of classes under the hood.
 function innerWorkingOfClasses () {
 
-  // Constructor Function:- class is just a syntactical sugar of this.
+  // Constructor Function:- Class is just a syntactical sugar/ wrapper around this.
   function User(username, email, password){
     this.username = username;
     this.email = email;
