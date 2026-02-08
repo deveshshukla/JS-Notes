@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bind Method in JS or React</title>
+</head>
+<body>
+    <button class="btn">Click Me</button>
+</body>
+<script>
+    class React {
+        constructor () {
+            this.server = 'http://localhost:3000';
+
+            // Use Case 1: Event Listeners
+            document.querySelector('.btn')
+                .addEventListener('click', this.handelClick.bind(this));
+            // bind(this) fixes 'this' context to class instance
+        }
+
+        handelClick() {
+            console.log('Current execution context:\n', this);
+            console.log(this.server);
+        }
+    }
+
+    let app = new React();
+
+
+    // =============================================
+
+    // ADDITIONAL EXAMPLES:
+    console.log('━━━━━ BIND EXAMPLES ━━━━━');
+
+    // Example 1: Basic binding
+    const user = {
+        name: 'John',
+        greet: function() {
+            console.log('Hello, ' + this.name);
+        }
+    };
+
+    const greetJohn = user.greet.bind(user);
+    greetJohn(); // Hello, John
+
+    // Example 2: Partial application (pre-filling arguments)
+    function add(a, b) {
+        return a + b;
+    }
+    const add5 = add.bind(null, 5); // Pre-fill first argument
+    console.log(add5(3)); // 8
+
+    // Example 3: setTimeout (common use case)
+    class Timer {
+        seconds = 5;
+        start() {
+            setTimeout(this.tick.bind(this), 1000);
+        }
+        tick() {
+            console.log(this.seconds + ' seconds left');
+        }
+    }
+
+</script>
+</html>
