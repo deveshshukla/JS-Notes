@@ -264,7 +264,7 @@ class User{
     this.password = password;
   }
 
-  // we can also add some methods/func. here
+  // we can also add some methods/func. inside class.
   encryptPass() {
     return `${this.username} Encrypted pass: ${String(this.password).slice(0, 3)}***`;
   }
@@ -273,3 +273,24 @@ class User{
 let user1 = new User('Aaron', 'aaron@gmail.com', 'Arr@3214');
 console.log(user1);
 console.log(user1.encryptPass());
+
+// This is actual inner working of classes under the hood.
+function innerWorkingOfClasses () {
+
+  // Constructor Function:- class is just a syntactical sugar of this.
+  function User(username, email, password){
+    this.username = username;
+    this.email = email;
+    this.password = password;
+  }
+
+  User.prototype.encryptPass = function() {
+    return `${this.username} Encrypted pass: ${String(this.password).slice(0, 3)}***`;
+  }
+
+  let user2 = new User('David', 'david@gmail.com', 'David@3214');
+  console.log(user2);
+  console.log(user2.encryptPass());
+
+}
+innerWorkingOfClasses();
