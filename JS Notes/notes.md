@@ -2093,3 +2093,102 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
   Q4: Can you access a function before it's declared?
   A4: Yes, if it's a function declaration. No, if it's a function expression or arrow function.
+
+
+/* ========= OOP's : Class, Constructor etc. =========
+
+Constructor functions:
+Constructors are functions that contain a this keyword.
+
+Example:
+function Human (firstName, lastName) {
+  this.firstName = firstName
+  this.lastName = lastName
+
+  // Inside method declaration
+  this.sayHello = function () {
+    console.log(`Hello, I'm ${firstName}`)
+  }
+}
+
+// Outside method declaration
+Human.prototype.sayHello = function () {
+  console.log(`Hello, I'm ${this.firstName}`)
+}
+
+'this' keyword let us to store (and access) unique values created for each instance. We can create an instance with the new keyword.
+
+----------------------------------------
+
+Constructor syntax in Class :
+The constructor method is a special method of a class for creating and initializing an object instance of that class.
+
+Classes :
+Classes are said to be the “syntactic sugar” of Constructor functions.
+Classes are a template for creating objects. They encapsulate data with code to work on that data. Classes in JS are built on prototypes.
+
+A class can be defined in two ways: a class expression or a class declaration.
+
+Example:
+// Class Declaration
+class Human {
+  constructor (firstName, lastName) {
+    this.firstName = firstName
+
+    // Inside method declaration
+    this.sayHello = function () {
+      console.log(`Hello, I'm ${firstName}`)
+    }
+  }
+
+  // Outside method declaration
+  sayHello () {
+    console.log(`Hello, I'm ${this.firstName}`)
+  }
+}
+
+// Class Expression: class is anonymous but assigned to a variable
+const Rectangle = class {
+  constructor(parameter) { }
+};
+
+// Expression: class has its own name
+const Rectangle = class Rectangle2 {
+  constructor(parameter) { }
+};
+
+----------------------------------------
+
+What is Object-Oriented Programming?
+Object-Oriented Programming is a way of writing code that allows you to create different objects from a common object. The common object is usually called a blueprint while the created objects are called instances.
+
+Each instance has properties that are not shared with other instances. For example, if you have a Human blueprint, you can create human instances with different names.
+
+The second aspect of Object-Oriented Programming is about structuring code when you have multiple levels of blueprints. This is commonly called Inheritance.
+
+The third aspect of Object Oriented Programming is about encapsulation where you hide certain pieces of information within the object so they’re not accessible.
+
+----------------------------------------
+
+Factory functions:
+Factory functions are functions that return an object. We can return any object. We can even return a Class instance and it’ll still be a valid Factory function.
+
+Example:
+function Human (firstName, lastName) {
+  return {
+    firstName,
+    lastName,
+    sayHello () {
+      console.log(`Hello, I'm ${firstName}`)
+    }
+  }
+}
+
+Note: We don’t need 'new' keyword to create instances with Factory functions. Just simply call the function.
+
+const chris = Human('Chris', 'doe')
+
+console.log(chris.firstName) // Chris
+console.log(chris.lastName) // doe
+
+*/
