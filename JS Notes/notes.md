@@ -1553,6 +1553,20 @@ Imp: String interpolation refers to construction of dynamic strings by embedding
 
    - Note: Factory vs. Constructor: Using 'literals' is often part of a Factory Pattern, whereas 'new keyword' is associated with Constructor Patterns or Classes.
 
+-----------------------------------
+
+Imp: In JavaScript, Map is the structure that consists of iterable key-value pairs by default.  
+1. Map (Directly Iterable)
+ - A Map is an iterable by design. 
+ - Direct Iteration: You can loop over a Map directly using a for...of loop.
+ - Order: It always remembers the original insertion order of the keys.
+ - Built-in Methods: It provides native methods like .keys(), .values(), and .entries() that return iterators.
+ - Default Behavior: In a for...of loop, a Map returns each entry as a [key, value] array. 
+
+2. Object (Not Directly Iterable)
+ - A plain JavaScript Object is not an iterable. 
+ - Indirect Iteration: To iterate over an object's key-value pairs, you must first convert it into an iterable format using helper methods like Object.entries(obj), Object.keys(obj), or Object.values(obj).
+
   -----------------------------------
 
   ### Basic Operations on JavaScript Objects
