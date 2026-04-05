@@ -2206,3 +2206,20 @@ console.log(chris.firstName) // Chris
 console.log(chris.lastName) // doe
 
 */
+
+----------------------------------------
+
+## Working of Event Loop
+The event loop continuously checks whether the call stack is empty and whether there are pending tasks in the callback queue or microtask queue.
+
+- Call Stack: JavaScript has a call stack where function execution is managed in a Last-In, First-Out (LIFO) order.
+
+- Web APIs (or Background Tasks): These include setTimeout, setInterval, fetch, DOM events, and other non-blocking operations.
+
+- Callback Queue (Task Queue): When an asynchronous operation is completed, its callback is pushed into the task queue.
+
+- Microtask Queue: Promises and other microtask's go into the microtask queue, which is processed before the task queue.
+
+- Event Loop: It continuously checks the call stack and, if empty, moves tasks from the queue to the stack for execution.
+
+![Working of Event Loop](image.png)
