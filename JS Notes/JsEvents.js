@@ -109,7 +109,7 @@ console.log("End");
 
   2. Priority of Microtasks Over Callbacks
   - Microtasks run before setTimeout, even if set with 0ms delay.
-  - The event loop first checks the microtask queue before the callback (macrotask) queue.
+  - The event loop first checks the microtask queue before the callback queue.
   - The microtask queue has higher priority than the callback queue in JavaScript.
 
   3. Callback Hell
